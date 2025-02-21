@@ -3,10 +3,12 @@ import { getMovies } from "@/utils/utils";
 
 import Link from "next/link";
 
-export default async function Home({ searchParams }: Readonly<{ searchParams: { page?: string } }>) {
-  // const { id } = await searchParams
-  const page = Number(searchParams?.page) || 1; 
-  const movies = await getMovies(page);
+export default async function Home(props: Readonly<{ searchParams: { page?: any } }>) {
+  // // const searchParams = await props.searchParams;
+  const { page } = await props.searchParams || 1
+  // // const page = Number(searchParams?.page) || 1;
+  // const page = 1
+  const movies = await getMovies(1);
   return (
     <div className="overflow-hidden mt-12 padding-x padding-y max-width">
       <h2 className="text-xl font-semibold mb-4">Movies</h2>
