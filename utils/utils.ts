@@ -5,19 +5,22 @@ const ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
 const TOKEN = `api_key=${ACCESS_TOKEN}`
 const SEARCH_URL = "search/movie?query="
 
-export async function getMovies(page: number = 1) {
-    const generalSorting = `include_adult=false&include_video=falselanguage=en-US&&sort_by=title.asc&vote_count.gte=10000`
-    const fullUrl = `${API_URL}/discover/movie?${generalSorting}&page=${page}&${TOKEN}`
-    console.log(fullUrl);
+export async function getMovies(page: number = 1, searchText?: string) {
+    const generalSorting = `include_adult=false&language=en-US&sort_by=title.asc&vote_count.gte=10000`
+    let fullUrl = ""
+    if (searchText) {
+     fullUrl = `${API_URL}/search/movie?query=${encodeURIComponent(searchText)}&${generalSorting}&page=${page}&${TOKEN}`
+    } else {
+      fullUrl = `${API_URL}/discover/movie?${generalSorting}&page=${page}&${TOKEN}`
+
+    }
     
     try {
         const res = await fetch(`${fullUrl}`);
-
-          if (!res.ok) throw new Error("Failed to fetch movies");
-        
-          const data = await res.json();
-          const movieResults: Movie[] = data.results
-          return movieResults; // Returns an array of 20 movies
+        if (!res.ok) throw new Error("Failed to fetch movies");        
+        const data = await res.json();
+        const movieResults: Movie[] = data.results
+        return movieResults; // Returns an array of 20 movies
     } catch (error) {
         console.log(error);
         return []

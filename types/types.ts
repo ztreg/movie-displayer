@@ -18,3 +18,7 @@ export interface Movie {
 export interface MovieProps {
     movie: Movie
 }
+
+export interface SearchBarProps {
+    handleClick: (val: string) => void;
+}

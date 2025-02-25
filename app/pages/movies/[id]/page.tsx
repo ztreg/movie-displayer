@@ -1,8 +1,12 @@
 import { getMovie } from "@/utils/utils";
 import { notFound } from "next/navigation";
 
-export default async function MoviePage(props: Readonly<{ params: { id: string } }>) {
-  const params = await props.params;
+export default async function MoviePage(props: Readonly<{ searchParams: any }>) {
+  console.log(props);
+  
+  const params = await props.searchParams;
+  console.log(params);
+  
   const movie = await getMovie(params.id);
 
   if (!movie) return notFound();
