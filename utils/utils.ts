@@ -12,7 +12,6 @@ export async function getMovies(page: number = 1, searchText?: string) {
      fullUrl = `${API_URL}/search/movie?query=${encodeURIComponent(searchText)}&${generalSorting}&page=${page}&${TOKEN}`
     } else {
       fullUrl = `${API_URL}/discover/movie?${generalSorting}&page=${page}&${TOKEN}`
-
     }
     
     try {
@@ -28,18 +27,44 @@ export async function getMovies(page: number = 1, searchText?: string) {
     
   }
 
-  export async function getMovie(id: string) {
-    const res = await fetch(`${API_URL}/movie/${id}?language=en-US`, {
+  export async function getMovieVideos(id: string) {
+    const options = {
+      method: 'GET',
       headers: {
-        "Authorization": `Bearer ${ACCESS_TOKEN}`,
-        "Content-Type": "application/json",
-      },
-      cache: "no-store",
-    });
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YTcxOGE5YWU4ZmU1MzAyNTY3YTA2Nzc5MmQwZGY0YiIsIm5iZiI6MTc0MDE0ODA0OS4wMzAwMDAyLCJzdWIiOiI2N2I4OGQ1MTQ0NGRkN2ZjZWZiYTdlYzAiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.kRfrjrOLDy2rm4DDipnzhByo-V4CAzfPsNXtgWg8mn0'
+      }
+    };
+    const url = `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`
+      
+    try {
+        const res = await fetch(`${url}`, options);
+        if (!res.ok) throw new Error("Failed to fetch movies");        
+        const data = await res.json();   
+        const movieResults: any[] = data.results
+        return movieResults; // Returns an array of 20 movies
+    } catch (error) {
+        console.log(error);
+        return error
+    }
+
+    
+  }
+
   
-    if (!res.ok) return null;
-  
-    return res.json();
+
+  export async function getMovie(id: string) {
+    try {
+      const res = await fetch(`${API_URL}/movie/${id}?language=en-US&${TOKEN}`);
+      if (!res.ok) throw new Error("Failed to fetch movies");        
+      const data = await res.json();
+      const movieResults: Movie = data
+      return movieResults; // Returns an array of 20 movies
+    
+    } catch (error) {
+        return error
+    }
+    
   }
 
 

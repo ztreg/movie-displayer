@@ -36,7 +36,7 @@ const SearchBar = ()  => {
 
 
   return (
-    <div className="relative w-full max-w-lg ">
+    <div className="relative w-[400px] max-w-lg">
       {/* Search Bar */}
       <input
         type="text"

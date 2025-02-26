@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Navbar } from "@/components";
 
 export const metadata: Metadata = {
   title: "A movie list. Yes.",
@@ -16,6 +17,7 @@ export default function RootLayout({
       <body
         className={`relative`}
       >
+        <Navbar></Navbar>
         {children}
       </body>
     </html>

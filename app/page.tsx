@@ -16,9 +16,7 @@ export default async function Home(props: Readonly<{ searchParams: any }>) {
 
   return (
     page && 
-    <div className="overflow-hidden mt-12 padding-x padding-y max-width">
-      <h2 className="text-xl font-semibold mb-4">Movies</h2>
-      <SearchBar />
+    <div className='overflow-hidden mt-12 padding-x padding-y max-width'>
 
       {!isDataEmpty ? (
             <section>
@@ -32,7 +30,6 @@ export default async function Home(props: Readonly<{ searchParams: any }>) {
           ): (
             <div className="home__error-container">
               <h2 className="text-black text-xl font-bold">Oops, no results</h2>
-              <p>{  }</p>
             </div>
           )}
 

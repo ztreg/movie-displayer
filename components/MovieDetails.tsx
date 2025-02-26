@@ -2,15 +2,16 @@
 
 import Image from "next/image";
 import { MovieProps } from "@/types/types";
-import Link from "next/link";
 import { useState } from "react";
 
-const MovieCard = ({ movie }: MovieProps) => {
-  const [imageError, setImageError] = useState(false);
-  const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
+const MovieDetails = ({ movie }: MovieProps) => {
+    const [imageError, setImageError] = useState(false);
+    const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
+    
+
   return (
-    <Link href={`/movies/${movie.id}`}>
-      <div className="car-card group text-blue-500 scale-100 hover:scale-105 ease-in duration-100">
+    <div className="movie__details-wrapper">
+      <div className="movie__details-content group text-blue-500">
         <div className="car-card__content">
           <h2 className="car-card__content-title justify-center">
             {movie.title}
@@ -28,6 +29,8 @@ const MovieCard = ({ movie }: MovieProps) => {
           />
         </div>
 
+        <Video></Video>
+
         <div className="relative flex w-full mt-2 z-50  group-hover:visible">
           <div className="flex w-full justify-between ">
             <div className="flex flex-col justify-start gap-2">
@@ -42,8 +45,23 @@ const MovieCard = ({ movie }: MovieProps) => {
         </div>
 
       </div>
-    </Link>
-  );
-};
+      </div>
+  )
+}
 
-export default MovieCard;
+function Video() {
+    return (
+      <video width="320" height="240" controls preload="none">
+        <source src="/path/to/video.mp4" type="video/mp4" />
+        <track
+          src="/path/to/captions.vtt"
+          kind="subtitles"
+          srcLang="en"
+          label="English"
+        />
+        Your browser does not support the video tag.
+      </video>
+    )
+  }
+
+export default MovieDetails
