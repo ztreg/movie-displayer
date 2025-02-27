@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Category = ({category}: any) => {
+const Category = ({category}: {category: string}) => {
   return (
     <div className=''>
         <div>{category}</div>

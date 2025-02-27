@@ -1,12 +1,11 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import SearchBar from './SearchBar'
+import {SuspendedSearchBar} from './'
 
 const Navbar = () => {
   return (
     <header className='w-full absolute z-10'>
         <nav className='max-w-[1440px] mx-auto flex flex-row justify-between items-center sm:px-16 px-6 py-4 mb-6'>
-            <div className='flex justify-start gap-6 items-center  w-[100%]'>
+            <div className='flex justify-start gap-6 items-center w-[100%]'>
                 <Link href="/" className='hover:underline'>
                     <h2 className="text-xl font-semibold mb-4">Movies</h2>
                 </Link>
@@ -18,7 +17,7 @@ const Navbar = () => {
                 </Link>
             </div>
 
-            <SearchBar />
+            <SuspendedSearchBar />
         </nav>
     </header>
   )

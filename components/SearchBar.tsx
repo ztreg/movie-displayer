@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 const SearchBar = ()  => {
@@ -36,18 +36,26 @@ const SearchBar = ()  => {
 
 
   return (
-    <div className="relative w-[400px] max-w-lg">
-      {/* Search Bar */}
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search movies..."
-        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
+      <div className="relative w-[400px] max-w-lg">
+        {/* Search Bar */}
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search movies..."
+          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
 
-    </div>
+      </div>
   );
 }
 
-export default SearchBar;
+
+// Wrapping the SearchBar with Suspense
+export default function SuspendedSearchBar() {
+  return (
+    <Suspense fallback={<div>Loading search...</div>}>
+      <SearchBar />
+    </Suspense>
+  )
+}

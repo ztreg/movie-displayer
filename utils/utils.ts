@@ -1,4 +1,4 @@
-import { Movie, Trailer } from "@/types/types";
+import { Movie, MovieDetailsType, Trailer } from "@/types/types";
 
 const API_URL = process.env.NEXT_PUBLIC_TMDB_API_URL;
 const ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
@@ -53,16 +53,21 @@ export async function getMovies(page: number = 1, searchText?: string) {
 
   
 
-  export async function getMovie(id: string) {
+  export async function getMovie(id: string): Promise<MovieDetailsType> {
     try {
       const res = await fetch(`${API_URL}/movie/${id}?language=en-US&${TOKEN}`);
       if (!res.ok) throw new Error("Failed to fetch movies");        
       const data = await res.json();
-      const movieResults: Movie = data
+      const movieResults: MovieDetailsType = data
       return movieResults; // Returns an array of 20 movies
     
-    } catch (error) {
-        return error
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        // Handle error gracefully, e.g., log it or return a default movie
+        console.error(error.message); // You can log or return a default Movie object
+      }
+      // If you want to return something specific in case of error, use a fallback movie or an empty object
+      return {} as MovieDetailsType; // Return an empty object or a default movie
     }
     
   }

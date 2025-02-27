@@ -4,7 +4,7 @@ import Link from "next/link";
 import { MovieCard } from "@/components";
 import { Movie } from "@/types/types";
 
-export default async function Home(props: Readonly<{ searchParams: any }>) {
+export default async function Home( props: Readonly<{ searchParams: Promise<{ page: Promise<string>, query: Promise<string> }>}>) {
   const searchParams = await props?.searchParams
   const page = Number(await searchParams.page) || 1
   const searchText = await searchParams.query

@@ -62,6 +62,10 @@ export interface MovieDetailsType {
     id: number
     name: string
   }
+
+  export interface GenreProps {
+    genre: Genre
+  }
   
   export interface ProductionCompany {
     id: number
