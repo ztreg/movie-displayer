@@ -4,6 +4,7 @@ import Image from "next/image";
 import { MovieDetailsProps } from "@/types/types";
 import { useState } from "react";
 import { VideoPlayer, Category } from "./";
+import { roundedNumber } from "@/utils/utils";
 
 const MovieDetails = ({ movie, trailers }: MovieDetailsProps) => {
     const [imageError, setImageError] = useState(false);
@@ -20,32 +21,33 @@ const MovieDetails = ({ movie, trailers }: MovieDetailsProps) => {
         <div className="relative w-full h-auto my-2 flex gap-4 flex-row flex-wrap">
           <Image
             src={ !imageError && movie.poster_path ? `${imageBaseUrl}${movie.poster_path}` : "/no-image.svg" }
-            alt="image of movie"
+            alt="poster image of movie"
             sizes="5"
             width={220}
             height={40}
             priority
-            className="object-contain flex"
-            onError={() => setImageError(true)} // If error, show fallback
+            className="object-contain"
+            onError={() => setImageError(true)}
           />
           
         {
             trailers?.length && ( <VideoPlayer videoId={trailers[0].key}></VideoPlayer> )
         }
-        <div>
-            <h2 className="car-card__content-title justify-center mb-4">Categories</h2>
-            {
-                movie.genres?.map((genre) => 
-                    <Category key={genre.id} category={genre.name}></Category>
-                )
-            }
-            
-        </div>
+        <div className='rounded-3xl bg-black-100 p-4 text-white flex flex-grow flex-col items-center justify-center flex-wrap'>
+            <p className="font-semibold">{roundedNumber(movie.vote_average)} / 10 </p> {/* Ensure value is a string */}
+            <p className="font-semibold">{movie.vote_average} / 10 </p> {/* Ensure value is a string */}
+            <p className="font-semibold">{movie.vote_average} / 10 </p> {/* Ensure value is a string */}
+
+        </div>  
         </div>
 
 
           <div className='flex-1 flex flex-col gap-2'>
                 <div className='mt-3 flex flex-wrap gap-4'>
+                <p className="text-black-100 font-semibold">{movie.overview}</p> {/* Ensure value is a string */}
+                {
+                movie.genres?.map((genre) => <Category key={genre.id} category={genre.name}></Category>)
+              }
                 {Object.entries(movie).map(([key, value]) => {
                     if (Array.isArray(value)) return null; // Ignore arrays
                     if (typeof value === "object" && value !== null) return null; // Ignore nested objects
@@ -56,7 +58,8 @@ const MovieDetails = ({ movie, trailers }: MovieDetailsProps) => {
                         <p className="text-black-100 font-semibold">{String(value)}</p> {/* Ensure value is a string */}
                         </div>
                     );
-                    })}
+                    })
+                    }
                 </div>
             </div>
 

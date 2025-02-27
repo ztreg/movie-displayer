@@ -4,6 +4,7 @@ import Image from "next/image";
 import { MovieProps } from "@/types/types";
 import Link from "next/link";
 import { useState } from "react";
+import { roundedNumber } from "@/utils/utils";
 
 const MovieCard = ({ movie }: MovieProps) => {
   const [imageError, setImageError] = useState(false);
@@ -32,7 +33,7 @@ const MovieCard = ({ movie }: MovieProps) => {
           <div className="flex w-full justify-between ">
             <div className="flex flex-col justify-start gap-2">
               <p className="text-[14px]">Release date: {movie.release_date}</p>
-              <p className="text-[14px]">Rating {movie.vote_average} / 10</p>
+              <p className="text-[14px]">Rating {roundedNumber(movie.vote_average)} / 10</p>
               <p className="text-[14px]">
                 Number of ratings: {movie.vote_count}
               </p>

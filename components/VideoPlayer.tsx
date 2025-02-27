@@ -4,7 +4,7 @@ import YouTube, { YouTubeProps } from "react-youtube";
 
 const VideoPlayer = ({ videoId }: { videoId: string }) => {
   const opts: YouTubeProps["opts"] = {
-    height: "330",
+    height: "351",
     width: "560",
     playerVars: {
       autoplay: 1,
@@ -17,8 +17,15 @@ const VideoPlayer = ({ videoId }: { videoId: string }) => {
   };
 
   return (
-    <div className="flex justify-center items-center">
-      <YouTube videoId={videoId} opts={opts} className="rounded-lg shadow-lg" />
+    <div className="flex">
+      {/* Ensuring responsive width with a max width of 560px */}
+      <div className="w-full max-w-[560px] sm:max-w-full">
+        <YouTube
+          videoId={videoId}
+          opts={opts}
+          className="rounded-lg shadow-lg w-full"
+        />
+      </div>
     </div>
   );
 };

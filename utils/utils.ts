@@ -41,7 +41,7 @@ export async function getMovies(page: number = 1, searchText?: string) {
         const res = await fetch(`${url}`, options);
         if (!res.ok) throw new Error("Failed to fetch movies");        
         const data = await res.json();   
-        const movieResults: any[] = data.results
+        const movieResults: Trailer[] = data.results
         return movieResults; // Returns an array of 20 movies
     } catch (error) {
         console.log(error);
@@ -72,5 +72,5 @@ export async function getMovies(page: number = 1, searchText?: string) {
     
   }
 
-
+export const roundedNumber = (decimalNumber: number) => Math.round(decimalNumber * 10) / 10
 
