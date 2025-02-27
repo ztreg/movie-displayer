@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { MovieDetailsProps } from "@/types/types";
 import { useState } from "react";
-import { VideoPlayer, Category } from "./index";
+import { VideoPlayer, Category } from "./";
 
 const MovieDetails = ({ movie, trailers }: MovieDetailsProps) => {
     const [imageError, setImageError] = useState(false);
