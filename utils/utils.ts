@@ -1,4 +1,4 @@
-import { Movie } from "@/types/types";
+import { Movie, Trailer } from "@/types/types";
 
 const API_URL = process.env.NEXT_PUBLIC_TMDB_API_URL;
 const ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
@@ -27,7 +27,7 @@ export async function getMovies(page: number = 1, searchText?: string) {
     
   }
 
-  export async function getMovieVideos(id: string) {
+  export async function getMovieVideos(id: string): Promise<Trailer[]> {
     const options = {
       method: 'GET',
       headers: {
@@ -45,7 +45,7 @@ export async function getMovies(page: number = 1, searchText?: string) {
         return movieResults; // Returns an array of 20 movies
     } catch (error) {
         console.log(error);
-        return error
+        return []
     }
 
     

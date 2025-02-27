@@ -1,8 +1,7 @@
-import Image from "next/image";
 import { getMovies } from "@/utils/utils";
 
 import Link from "next/link";
-import { MovieCard, SearchBar } from "@/components";
+import { MovieCard } from "@/components";
 import { Movie } from "@/types/types";
 
 export default async function Home(props: Readonly<{ searchParams: any }>) {
@@ -13,20 +12,18 @@ export default async function Home(props: Readonly<{ searchParams: any }>) {
   const movies = await getMovies(page, searchText);
   const isDataEmpty = !Array.isArray(movies) || movies.length < 1 || !movies
 
-
   return (
     page && 
     <div className='overflow-hidden mt-12 padding-x padding-y max-width'>
-
       {!isDataEmpty ? (
-            <section>
-              <div className="home__cars-wrapper">
-                {movies?.map((movie: Movie) => (
-                  <MovieCard key={movie.id} movie={movie} />
-                  )
-                )}
-              </div>
-            </section>
+          <section>
+            <div className="home__cars-wrapper">
+              {movies?.map((movie: Movie) => (
+                <MovieCard key={movie.id} movie={movie} />
+                )
+              )}
+            </div>
+          </section>
           ): (
             <div className="home__error-container">
               <h2 className="text-black text-xl font-bold">Oops, no results</h2>
