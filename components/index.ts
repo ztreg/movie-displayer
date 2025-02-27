@@ -1,4 +1,4 @@
-import MovieCard from './MovieCard'
+import MovieCard from '@/components/MovieCard'
 import SuspendedSearchBar from './SearchBar'
 import MovieDetails from './MovieDetails'
 import Navbar from './Navbar'
