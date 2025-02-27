@@ -1,7 +1,7 @@
 import { getMovies } from "@/utils/utils";
 
 import Link from "next/link";
-import { MovieCard } from "@/components";
+import MovieCard  from "@/components/MovieCard";
 import { Movie } from "@/types/types";
 
 export default async function Home( props: Readonly<{ searchParams: Promise<{ page: Promise<string>, query: Promise<string> }>}>) {

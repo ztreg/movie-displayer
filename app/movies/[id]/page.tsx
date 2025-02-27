@@ -1,4 +1,4 @@
-import { MovieDetails } from "@/components";
+import MovieDetails from "@/components/MovieDetails";
 // import { MovieDetailsType } from "@/types/types";
 import { getMovie, getMovieVideos } from "@/utils/utils";
 import { notFound } from "next/navigation";
