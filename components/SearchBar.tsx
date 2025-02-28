@@ -9,6 +9,8 @@ const SearchBar = ()  => {
     const initialQuery = searchParams.get("query") ?? ""; // Get query from URL if available
     const [query, setQuery] = useState(initialQuery);
     const [debouncedQuery, setDebouncedQuery] = useState(initialQuery);
+    const params = new URLSearchParams(searchParams);
+    params.delete("query");
 
   // Debounce logic: wait 300ms after the user stops typing before updating the query params
   useEffect(() => {
@@ -36,7 +38,7 @@ const SearchBar = ()  => {
 
 
   return (
-      <div className="relative w-[400px] max-w-lg">
+      <div className="relative w-[390px] max-w-lg flex">
         {/* Search Bar */}
         <input
           type="text"

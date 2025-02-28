@@ -99,3 +99,10 @@ export interface MovieDetailsProps {
 export interface SearchBarProps {
     handleClick: (val: string) => void;
 }
+export interface ImageComponentProps {
+  baseUrl: string
+  imageUrl: string
+  alt: string
+  w?: string
+  h?: string
+}

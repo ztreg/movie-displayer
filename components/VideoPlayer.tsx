@@ -7,7 +7,7 @@ const VideoPlayer = ({ videoId }: { videoId: string }) => {
     height: "351",
     width: "560",
     playerVars: {
-      autoplay: 1,
+      autoplay: 0,
       modestbranding: 1, // Hides YouTube logo
       rel: 0, // Prevents showing related videos
       disablekb: 1, // Disables keyboard controls

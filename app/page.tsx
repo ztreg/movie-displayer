@@ -17,7 +17,7 @@ export default async function Home( props: Readonly<{ searchParams: Promise<{ pa
     <div className='overflow-hidden mt-12 padding-x padding-y max-width'>
       {!isDataEmpty ? (
           <section>
-            <div className="home__cars-wrapper">
+            <div className="home__cars-wrapper mt-4">
               {movies?.map((movie: Movie) => (
                 <MovieCard key={movie.id} movie={movie} />
                 )

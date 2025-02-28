@@ -4,8 +4,8 @@ import { notFound } from "next/navigation";
 
 export default async function MoviePage(
   props: Readonly<{
-    searchParams: Promise<{ [key: string]: string }>; // Now searchParams is a Promise
-    params: Promise<{ id: Promise<string> }>; // params is already a Promise
+    searchParams: Promise<{ [key: string]: string }>;
+    params: Promise<{ id: Promise<string> }>;
   }>
 ){
   try {
@@ -13,8 +13,6 @@ export default async function MoviePage(
     const id = await params.id
 
     const movie = await getMovie(id)
-    console.log(movie);
-    
     if (!movie) {
       console.log("Movie not found, triggering notFound()");
       return notFound();
