@@ -7,7 +7,7 @@ import { ImageComponent } from "./index";
 const MovieCard = ({ movie }: MovieProps) => {
 
   const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
-  console.log(movie);
+  // console.log(movie);
   
   return (
     <Link href={`/movies/${movie.id}`}>

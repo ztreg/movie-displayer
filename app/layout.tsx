@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components";
+import { GenreProvider } from "@/contexts/GenreContext";
 
 export const metadata: Metadata = {
   title: "A movie list. Yes.",
@@ -17,8 +18,10 @@ export default function RootLayout({
       <body
         className={`relative`}
       >
-        <Navbar></Navbar>
-        {children}
+         <GenreProvider>
+          <Navbar></Navbar>
+          {children}
+        </GenreProvider>
       </body>
     </html>
   );

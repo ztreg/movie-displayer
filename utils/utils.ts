@@ -1,11 +1,11 @@
-import { Movie, MovieDetailsType, Trailer } from "@/types/types";
+import { Genre, Movie, MovieDetailsType, Trailer } from "@/types/types";
 
 const API_URL = process.env.NEXT_PUBLIC_TMDB_API_URL;
 const ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
 const TOKEN = `api_key=${ACCESS_TOKEN}`
 const SEARCH_URL = "search/movie?query="
 
-export async function getMovies(page: number = 1, searchText?: string) {
+export async function getMovies(page: number = 1, searchText?: string, category?: string) {
     const generalSorting = `include_adult=false&language=en-US&sort_by=title.asc&vote_count.gte=10000`
     let fullUrl = ""
     if (searchText) {
@@ -70,6 +70,36 @@ export async function getMovies(page: number = 1, searchText?: string) {
       return {} as MovieDetailsType; // Return an empty object or a default movie
     }
     
+  }
+
+  export async function getMovieGenres(): Promise<Genre[]> {
+    console.log('GETTING MOVIE GENRES');
+    
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YTcxOGE5YWU4ZmU1MzAyNTY3YTA2Nzc5MmQwZGY0YiIsIm5iZiI6MTc0MDE0ODA0OS4wMzAwMDAyLCJzdWIiOiI2N2I4OGQ1MTQ0NGRkN2ZjZWZiYTdlYzAiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.kRfrjrOLDy2rm4DDipnzhByo-V4CAzfPsNXtgWg8mn0'
+      }
+    };
+    const url = "https://api.themoviedb.org/3/genre/movie/list"
+
+    try {
+      const res = await fetch(`${url}`, options);
+      if (!res.ok) throw new Error("Failed to fetch genres");        
+      const data = await res.json();
+
+      return data.genres
+    
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        // Handle error gracefully, e.g., log it or return a default movie
+        console.error(error.message); // You can log or return a default Movie object
+      }
+      // If you want to return something specific in case of error, use a fallback movie or an empty object
+      return []; // Return an empty object or a default movie
+    }
+
   }
 
 export const roundedNumber = (decimalNumber: number) => Math.round(decimalNumber * 10) / 10
