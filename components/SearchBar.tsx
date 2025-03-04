@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const SearchBar = ()  => {
     const router = useRouter();
@@ -12,16 +12,8 @@ const SearchBar = ()  => {
     const [query, setQuery] = useState(initialQuery);
 
     const [debouncedQuery, setDebouncedQuery] = useState(initialQuery);
-    const pathname = usePathname(); // Get current path
 
   // Debounce logic: wait 300ms after the user stops typing before updating the query params
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedQuery(query);
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [query]);
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedQuery(query);
@@ -56,7 +48,6 @@ const SearchBar = ()  => {
 
   return (
     <div className="relative w-[390px] max-w-lg flex">
-      {/* Search Bar */}
       <input
         type="text"
         value={query}

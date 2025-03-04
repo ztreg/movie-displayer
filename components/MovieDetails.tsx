@@ -7,8 +7,7 @@ import { formatNumber, getPopularityRank, roundedNumber } from "@/utils/utils";
 import Loading from "@/app/loading";
 
 const MovieDetails = ({ movie, trailers }: MovieDetailsProps) => {
-    const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
-    console.log(movie);
+  const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
     
   return (
     <div className="movie__details-wrapper h-auto ">
@@ -27,11 +26,7 @@ const MovieDetails = ({ movie, trailers }: MovieDetailsProps) => {
             alt="image of movie poster"
           ></ImageComponent>
 
-          <Suspense fallback={<Loading />}>
-          {
-              trailers?.length && ( <VideoPlayer videoId={trailers[0].key}></VideoPlayer> )
-          }
-          </Suspense>
+          <Suspense fallback={<Loading />}> { trailers?.length && ( <VideoPlayer videoId={trailers[0].key}></VideoPlayer> ) } </Suspense>
 
           <ImageComponent
             baseUrl={imageBaseUrl}
@@ -41,7 +36,6 @@ const MovieDetails = ({ movie, trailers }: MovieDetailsProps) => {
             alt="image of movie backdrop"
           ></ImageComponent>
         </div>
-
 
         <div className='flex-1 flex flex-col'>
           <div className='mt-3 flex flex-wrap gap-8'>
@@ -57,8 +51,7 @@ const MovieDetails = ({ movie, trailers }: MovieDetailsProps) => {
               <p className='p-4 text-gray-300 leading-relaxed'>{movie.overview}</p>
               </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full border-t-2">
-              <div className=" p-4 text-black-1 flex flex-wrap flex-col">
-                {/* <h3 className='text-[22px] leading-[26px] font-bold mb-2 '>Movie details</h3> */}
+              <div className="p-4 text-black-1 flex flex-wrap flex-col">
                 <p className="text-gray-400 text-md">Released: {movie.release_date}</p> 
                 <p className="text-gray-400 text-m">Audience Score: {roundedNumber(movie.vote_average)} / 10 </p>
                 <p className="text-gray-400 text-m">Number of votes: {movie.vote_count} </p> 

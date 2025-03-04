@@ -2,16 +2,16 @@
 
 import Link from 'next/link'
 import Image from "next/image";
-import {SuspendedSearchBar} from './'
+import { SuspendedSearchBar } from './'
 import { useSearchParams  } from 'next/navigation';
 import { useGenres } from '@/contexts/GenreContext';
 import { useEffect, useState } from 'react';
 
 const Navbar = () => {
     const { genres } = useGenres();
-    const [ isGenresVisible, setIsGenresVisible ] = useState(false); // State to toggle visibility
+    const [ isGenresVisible, setIsGenresVisible ] = useState(false);
     const searchParams = useSearchParams();
-    const category = searchParams.get("category") ?? ""; // Get query from URL if available
+    const category = searchParams.get("category") ?? "";
     const [activeCategory, setActiveCategory] = useState(category);
     
     useEffect(() => {
@@ -40,7 +40,10 @@ const Navbar = () => {
         <header className="w-full absolute z-10">
             <nav className="max-w-[1440px] mx-auto flex flex-row justify-between sm:px-16 px-6 py-4 mb-6 flex-wrap">
                 <div className="flex gap-6 flex-wrap items-center">
-                    <Link onClick={() => setIsGenresVisible(false)}  href="/?type=movies" className="relative text-xl font-semibold flex items-center hover_line-animation">
+                <Link onClick={() => setIsGenresVisible(false)}  href="/" className="relative text-xl font-semibold flex items-center hover_line-animation">
+                       Explore 
+                    </Link>
+                    <Link onClick={() => setIsGenresVisible(false)}  href="/movies" className="relative text-xl font-semibold flex items-center hover_line-animation">
                        Movies 
                     </Link>
                     <button onClick={handleToggleGenres} className="text-xl font-semibold flex items-center pr-2 flex-wrap">
@@ -66,11 +69,11 @@ const Navbar = () => {
                         {genres.map((genre) => (
                         <Link
                             onClick={handleToggleGenres}
-                            href={`/?type=movies&category=${genre.id}`}
+                            href={`/movies?category=${genre.id}`}
                             key={genre.id}
-                            className={`p-4 w-1/2 border pb-2 pt-2 bg-gradient-to-r from-purple-800 via-pink-600 to-red-500 text-white hover:underline hover:bg-gradient-to-r hover:from-purple-700 hover:via-pink-500 hover:to-red-400 focus:outline-none focus:ring-2 focus:ring-pink-500 ${
-                            isActive(`/?type=movies&category=${genre.id}`)
-                                ? "border-b-2 border-blue-500"
+                            className={`p-4 w-1/2 border border-pink-500 bg-pink-950 text-pink-300 rounded-lg hover:bg-pink-800 hover:text-white transition-all ${
+                            isActive(`/movies?category=${genre.id}`)
+                                ? "border-b-2 border-white"
                                 : "border-transparent"
                             }`}
                         >

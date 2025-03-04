@@ -91,6 +91,10 @@ export interface MovieProps {
     trailers?: Trailer[]
 }
 
+export interface CarouselProps {
+  movies: Movie[]
+}
+
 export interface MovieDetailsProps {
     movie: MovieDetailsType
     trailers?: Trailer[]

@@ -6,6 +6,7 @@ import VideoPlayer from './VideoPlayer'
 import Category from './Category'
 import ImageComponent from './ImageComponent'
 import RedirectHome from './RedirectHome'
+import Explore from './Explore'
 
 
 export {
@@ -16,5 +17,6 @@ export {
     VideoPlayer,
     Category,
     ImageComponent,
-    RedirectHome
+    RedirectHome,
+    Explore
 }

@@ -2,7 +2,7 @@ import { MovieDetails } from "@/components";
 import { getMovie, getMovieVideos } from "@/utils/utils";
 import { notFound } from "next/navigation";
 
-export default async function MoviePage(
+export default async function MovieDetailsPage(
   props: Readonly<{
     searchParams: Promise<{ [key: string]: string }>;
     params: Promise<{ id: Promise<string> }>;
