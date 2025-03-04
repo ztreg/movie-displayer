@@ -6,7 +6,7 @@ const Category = ( { genre }: GenreProps ) => {
   const { name, id } = genre
   return (
     <Link href={`/?category=${id}`}>
-      <div className='text-[14px] border-gray-700 rounded-3xl bg-gray-500 text-white p-2 hover:bg-gray-300 hover:text-black-100'>
+      <div className='text-[14px] border-pink-100 rounded-3xl bg-pink-800 text-white p-2 hover:bg-pink-400 hover:text-black-100'>
           {name}
       </div>
     </Link>

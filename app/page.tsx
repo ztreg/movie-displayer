@@ -16,7 +16,7 @@ export default async function Home( props: Readonly<{ searchParams: Promise<{ pa
 
   return (
     page && 
-    <div className='overflow-hidden mt-12 padding-x padding-y max-width'>
+    <div className='overflow-hidden padding-x padding-y max-width'>
       {!isDataEmpty ? (
           <section>
             <div className="home__cars-wrapper mt-4">

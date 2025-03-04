@@ -10,19 +10,18 @@ export function GenreProvider({ children }: Readonly<{ children: React.ReactNode
 
   useEffect(() => {
     async function fetchGenres() {
-        if (genres?.length === 0) {
-            const data = await getMovieGenres();
-            if (data) {
-              setGenres(data);
-            }
-        }
-
+      if (genres?.length === 0) {
+          const data = await getMovieGenres();
+          if (data) {
+            setGenres(data);
+          }
+      }
     }
 
     if (genres.length === 0) {
       fetchGenres();
     }
-  }, [genres.length]); // ✅ Empty dependency array to avoid infinite loops
+  }, [genres.length]);
 
   const contextValue = useMemo(() => ({ genres }), [genres]); // ✅ Memoized value for performance
 

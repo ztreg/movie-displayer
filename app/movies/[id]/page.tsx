@@ -22,7 +22,7 @@ export default async function MoviePage(
     const filteredVideos = videos?.filter((video) => video.type === "Trailer") ?? [];
 
     return (
-      <div className="overflow-hidden mt-12 padding-x padding-y max-width">
+      <div className="overflow-hidden padding-x padding-y max-width">
         <MovieDetails movie={movie} trailers={filteredVideos} />
       </div>
     );

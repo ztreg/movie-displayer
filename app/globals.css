@@ -72,7 +72,7 @@
 }
 
 .home__filters {
-  @apply mt-12 w-full flex-between items-center flex-wrap gap-5;
+  @apply  w-full flex-between items-center flex-wrap gap-5;
 }
 
 .home__filter-container {
@@ -210,3 +210,7 @@
   @apply w-full h-[48px] pl-12 p-4 bg-light-white rounded-r-full max-sm:rounded-full outline-none cursor-pointer text-sm;
 }
 /* END: searchbar styles */
+
+.hover_line-animation {
+  @apply after:absolute after:w-full after:h-1 after:bg-pink-500 after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300
+}

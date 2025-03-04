@@ -29,16 +29,16 @@ const ImageComponent = ( { baseUrl, imageUrl, w, h, alt }: ImageComponentProps )
           width={width}
           height={height}
           priority
-          className="object-contain bg-black"
+          className="object-contain bg-gradient-to-r from-gray-800 via-pink-800 to-gray-900 rounded-2xl"
           onError={() => setImageError(true)}
         />
     )
   }
 
-  const decideCardType = () => w ? detailsImage() : cardImage()
+  const decideImageType = () => w ? detailsImage() : cardImage()
 
   return (
-    decideCardType()
+    decideImageType()
   )
 }
 

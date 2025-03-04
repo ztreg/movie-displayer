@@ -6,13 +6,21 @@ const TOKEN = `api_key=${ACCESS_TOKEN}`
 const SEARCH_URL = "search/movie?query="
 
 export async function getMovies(page: number = 1, searchText?: string, category?: string) {
-    const generalSorting = `include_adult=false&language=en-US&sort_by=title.asc&vote_count.gte=10000`
+    const generalSorting = `include_adult=false&language=en-US&sort_by=title.asc&vote_count.gte=7000`
     let fullUrl = ""
     if (searchText) {
-     fullUrl = `${API_URL}/search/movie?query=${encodeURIComponent(searchText)}&${generalSorting}&page=${page}&${TOKEN}`
+     fullUrl = `${API_URL}/search/movie?query=${encodeURIComponent(searchText)}&${generalSorting}`
+     if (category) {
+       fullUrl = fullUrl + `with_genres=${category}`
+     }
+      
     } else {
-      fullUrl = `${API_URL}/discover/movie?${generalSorting}&page=${page}&${TOKEN}`
+      fullUrl = `${API_URL}/discover/movie?${generalSorting}`
+      if (category) {
+        fullUrl = fullUrl + `&with_genres=${category}`
+      }
     }
+    fullUrl = fullUrl + `&page=${page}&${TOKEN}`
     
     try {
         const res = await fetch(`${fullUrl}`);
@@ -103,4 +111,19 @@ export async function getMovies(page: number = 1, searchText?: string, category?
   }
 
 export const roundedNumber = (decimalNumber: number) => Math.round(decimalNumber * 10) / 10
+
+
+export const formatNumber = (num: number) => {
+  return num >= 1_000_000 
+    ? (num / 1_000_000).toFixed(2).replace('.', ',') + " million" 
+    : new Intl.NumberFormat('sv-SE').format(num);
+};
+
+export const getPopularityRank = (popularity: number): string => {
+  if (popularity >= 300) return "Very High (9-10/10)";
+  if (popularity >= 100) return "High (7-8/10)";
+  if (popularity >= 30) return "Moderate (4-6/10)";
+  if (popularity >= 10) return "Low (2-3/10)";
+  return "Very Low (1/10)";
+};
 
