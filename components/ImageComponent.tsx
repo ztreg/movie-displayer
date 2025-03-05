@@ -22,6 +22,7 @@ const ImageComponent = ( { baseUrl, imageUrl, w, h, alt }: ImageComponentProps )
   const detailsImage = () => {
     const width = Number(w)
     const height = Number(h)
+    
     return (
         <Image
           src={ !imageError && imageUrl ? `${baseUrl}${imageUrl}` : "/no-image.svg" }

@@ -23,6 +23,7 @@ module.exports = {
           100: "rgba(59,60,152,0.02)",
         },
         grey: "#747A88",
+        "custom-gray": "#333"
       },
       backgroundImage: {
         'pattern': "url('/pattern.png')",
@@ -35,5 +36,6 @@ module.exports = {
         display: ["group-hover"],
     },
   },
-  plugins: [],
+  plugins: [
+  ],
 };

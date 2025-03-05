@@ -214,3 +214,17 @@
 .hover_line-animation {
   @apply after:absolute after:w-full after:h-1 after:bg-pink-500 after:bottom-0 after:left-0 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300
 }
+
+/* Add to your global CSS or within a style tag in _app.js or _document.js */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 10px;
+}

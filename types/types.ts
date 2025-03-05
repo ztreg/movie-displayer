@@ -13,7 +13,6 @@ export interface Movie {
     video: boolean,
     vote_average: number,
     vote_count: number
-    
 }
 
 export interface Trailer {
@@ -57,6 +56,55 @@ export interface MovieDetailsType {
     vote_average: number
     vote_count: number
   }
+
+  export interface Cast {
+    adult: boolean;
+    gender: number;
+    id: number;
+    known_for_department: string;
+    name: string;
+    original_name: string;
+    popularity: number;
+    profile_path: string | null; // profile path could be null in some cases
+    cast_id: number;
+    character: string;
+    credit_id: string;
+    order: number;
+  }
+
+  export interface MovieCredits {
+    cast: Cast[]
+    crew: Crew[]
+  }
+
+  export interface Cast {
+    adult: boolean;
+    gender: number;
+    id: number;
+    known_for_department: string;
+    name: string;
+    original_name: string;
+    popularity: number;
+    profile_path: string | null; // profile path could be null in some cases
+    cast_id: number;
+    character: string;
+    credit_id: string;
+    order: number;
+  }
+
+  export interface Crew {
+    adult: boolean;
+    gender: number;
+    id: number;
+    known_for_department: string; // Can be "Production" or other departments.
+    name: string;
+    original_name: string;
+    popularity: number;
+    profile_path: string | null; // profile path could be null in some cases
+    credit_id: string;
+    department: string; // Department like "Production", "Directing", etc.
+    job: string; // Job title in the department, such as "Producer"
+  }
   
   export interface Genre {
     id: number
@@ -89,15 +137,21 @@ export interface MovieDetailsType {
 export interface MovieProps {
     movie: Movie
     trailers?: Trailer[]
+    type?: "explore" | "list"
 }
 
 export interface CarouselProps {
   movies: Movie[]
 }
 
+export interface CreditProps {
+  credits: MovieCredits
+}
+
 export interface MovieDetailsProps {
     movie: MovieDetailsType
     trailers?: Trailer[]
+    credits: MovieCredits
 }
 
 export interface SearchBarProps {

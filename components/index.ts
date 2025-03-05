@@ -7,6 +7,7 @@ import Category from './Category'
 import ImageComponent from './ImageComponent'
 import RedirectHome from './RedirectHome'
 import Explore from './Explore'
+import Credit from './Credit'
 
 
 export {
@@ -18,5 +19,6 @@ export {
     Category,
     ImageComponent,
     RedirectHome,
-    Explore
+    Explore,
+    Credit
 }

@@ -4,14 +4,12 @@ import Link from "next/link";
 import { ImageComponent } from "./index";
 import { roundedNumber } from "@/utils/utils";
 
-const MovieCard = ({ movie }: MovieProps) => {
+const MovieCard = ({ movie, type }: MovieProps) => {
 
-  const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
-  // console.log(movie);
-  
+  const imageBaseUrl = "https://image.tmdb.org/t/p/w185";
+
   return (
-    <Link href={`/movies/${movie.id}`}>
-      <div className="flex flex-col flex-start scale-100 hover:scale-105 ease-in duration-100 bg-gray-900 text-white p-6 rounded-xl border border-pink-500/60 shadow-lg shadow-pink-500/20">
+    <Link href={`/movies/${movie.id}` } className="min-w-[240px] flex flex-col flex-start scale-100 hover:scale-105 ease-in duration-100 bg-gray-900 text-white p-6 rounded-xl border border-pink-500/60 shadow-lg shadow-pink-500/20">
         <div className="car-card__content ">
           <h2 className="car-card__content-title w-full text-center mb-2">
             {movie.title}
@@ -24,15 +22,18 @@ const MovieCard = ({ movie }: MovieProps) => {
             alt="image of movie poster"
           ></ImageComponent>
         </div>
-
-        <div className="mt-4 flex justify-around items-center">
+      {
+        type !== "explore" ? (
+          <div className="mt-4 flex justify-around items-center">
           <span className="text-md text-gray-400">⭐ {roundedNumber(movie.vote_average)}/10</span>
           <button className="px-4 py-2 bg-pink-500 text-gray-900 font-semibold rounded-lg hover:bg-pink-400 transition">
             Details
           </button>
         </div>
-
-      </div>
+        ) : (
+          ""
+        )
+      }
     </Link>
   );
 };

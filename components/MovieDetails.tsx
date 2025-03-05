@@ -1,14 +1,15 @@
 "use client";
 
-import { MovieDetailsProps } from "@/types/types";
+import { MovieCredits, MovieDetailsProps } from "@/types/types";
 import { Suspense } from "react";
-import { VideoPlayer, Category, ImageComponent } from "./";
+import { VideoPlayer, Category, ImageComponent, Credit } from "./";
 import { formatNumber, getPopularityRank, roundedNumber } from "@/utils/utils";
 import Loading from "@/app/loading";
 
-const MovieDetails = ({ movie, trailers }: MovieDetailsProps) => {
+const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
   const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
-    
+  const isCreditsEmpty = !Array.isArray(credits.crew) || credits.crew.length < 1 || !credits
+  
   return (
     <div className="movie__details-wrapper h-auto ">
       <div className="p-6 mt-2 min-h-screen bg-gradient-to-r from-gray-800 via-purple-950 to-gray-900 text-white rounded-3xl">
@@ -49,23 +50,38 @@ const MovieDetails = ({ movie, trailers }: MovieDetailsProps) => {
             </div>
             <div className=''>
               <p className='p-4 text-gray-300 leading-relaxed'>{movie.overview}</p>
-              </div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full border-t-2">
-              <div className="p-4 text-black-1 flex flex-wrap flex-col">
-                <p className="text-gray-400 text-md">Released: {movie.release_date}</p> 
-                <p className="text-gray-400 text-m">Audience Score: {roundedNumber(movie.vote_average)} / 10 </p>
-                <p className="text-gray-400 text-m">Number of votes: {movie.vote_count} </p> 
-                <p className="text-gray-400 text-m">Budget: ${formatNumber(movie.budget)}</p> 
-                <p className="text-gray-400 text-m">Revenue: ${formatNumber(movie.revenue)}</p> 
-                <p className="text-gray-400 text-m">Made in: {movie.origin_country}</p> 
-                <p className="text-gray-400 text-m">Popularity: {getPopularityRank(movie.popularity)}</p> 
+              {/* Top Actors Section */}
+              <div className="p-4 text-black-1 flex flex-col border-r-2">
+                {!isCreditsEmpty ? (
+                  <div className="p-4 text-black-1 flex flex-col gap-8">
+                    <h2 className="pb-2 text-lg">Top Actors</h2>
+                    {credits?.cast?.map((cast, i) => (
+                      i < 5 && <Credit key={cast.id} credit={cast} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="home__error-container">
+                    <h2 className="text-black text-xl font-bold">Oops, no results</h2>
+                  </div>
+                )}
               </div>
-              <div className="p-4 text-black-1 flex flex-wrap flex-col">
-                <p className="text-gray-400 text-lg">Released: {movie.release_date}</p> 
-                <p className='text-gray-400 text-m'>Audience Score: {roundedNumber(movie.vote_average)} / 10 </p>
-                <p className="text-gray-400 text-m">Number of votes: {movie.vote_count} </p> 
-                <p className="text-gray-400 text-m">Budget: ${movie.budget}</p> 
-                <p className="text-gray-400 text-m">Made in: {movie.origin_country}</p> 
+
+              {/* Key Crew Members Section */}
+              <div className="p-4 text-black-1 flex flex-col">
+                {!isCreditsEmpty ? (
+                  <div className="p-4 text-black-1 flex flex-col gap-8">
+                    <h2 className="pb-2 text-lg">Key Crew Members</h2>
+                    {credits?.crew?.map((crew, i) => (
+                      i < 5 && <Credit key={crew.id} credit={crew} />
+                    ))}
+                  </div>
+                  ) : (
+                    <div className="home__error-container">
+                      <h2 className="text-black text-xl font-bold">Oops, no results</h2>
+                    </div>
+                  )}
               </div>
             </div>
           </div>

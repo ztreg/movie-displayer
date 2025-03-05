@@ -35,11 +35,11 @@ export default async function MoviePage( props: Readonly<{ searchParams: Promise
 
      <div className="mt-4 flex gap-4">
        {page > 1 && (
-         <Link href={`/?page=${(page-1)}`} className="text-blue-500 hover:underline">
+         <Link href={`/movies?page=${(page-1)}`} className="text-blue-500 hover:underline">
            ← Previous
          </Link>
        )}
-       <Link href={`/?page=${(page+1)}`} className="text-blue-500 hover:underline">
+       <Link href={`/movies?page=${(page+1)}`} className="text-blue-500 hover:underline">
          Next →
        </Link>
      </div>

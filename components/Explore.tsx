@@ -1,53 +1,53 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
+import { useRef } from 'react';
 import { CarouselProps, Movie } from '@/types/types';
 import MovieCard from './MovieCard';
 
-const images = [
-    { src: '/close.svg', title: 'Movie 1' },
-    { src: '/car-logo.svg', title: 'Movie 2' },
-    { src: '/globe.svg', title: 'Movie 3' },
-    { src: '/hero.png', title: 'Movie 4' },
-    { src: '/logo.svg', title: 'Movie 5' },
-    { src: '/linkedin.svg', title: 'Movie 6' },
-    { src: '/heart-filled.svg', title: 'Movie 7' },
-    { src: '/facebook.svg', title: 'Movie 8' },
-    { src: '/github.svg', title: 'Movie 9' },
-  ];
-  
-
-
 const Explore = ({ movies }: CarouselProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [currentIndex]);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length);
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: 256, behavior: 'smooth' });
+    }
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: -256, behavior: 'smooth' });
+    }
   };
 
   return (
-    <div className=" pt-20 md-4 relative w-full max-w-4xl mx-auto overflow-hidden ">
-      <div className="flex items-center justify-center gap-4">
-        <button onClick={prevSlide} className="absolute left-4 p-2 bg-black/50 text-white rounded-full">❮</button>
-        <div className="flex gap-2 overflow-hidden w-full">
-            {movies?.map((movie: Movie) => (
-               <MovieCard key={movie.id} movie={movie} />
-               )
-             )}
+    <div className="pt-24 relative w-full max-w-7xl mx-auto">
+      <h1 className='flex justify-center text-2xl p-4 text-white font-bold'>🔥 Trending 🔥</h1>
+      <div className="relative flex items-center">
+        <button 
+          onClick={prevSlide} 
+          className="absolute left-[-62px] p-4 bg-black/60 text-white rounded-full text-3xl transform -translate-y-1/2 top-1/2 hover:bg-black/80 shadow-lg"
+        >
+          ❮
+        </button>
+        <div 
+          ref={carouselRef} 
+          className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-900 p-4 rounded-xl bg-black/30 backdrop-blur-md"
+          style={{ scrollBehavior: 'smooth' }}
+        >
+          {movies?.map((movie: Movie, index) => (
+              <div key={movie.id} className='text-center p-0 mb-1 font-semibold'>
+                <h2 className='mb-3'># {index + 1}
+                </h2>
+                <MovieCard  movie={movie} type="explore" />
+              </div>
+          ))}
         </div>
-        <button onClick={nextSlide} className="absolute right-4 p-2 bg-black/50 text-white rounded-full">❯</button>
+        <button 
+          onClick={nextSlide} 
+          className="absolute right-[-62px] p-4 bg-black/60 text-white rounded-full text-3xl transform -translate-y-1/2 top-1/2 hover:bg-black/80 shadow-lg"
+        >
+          ❯
+        </button>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { MovieDetails } from "@/components";
-import { getMovie, getMovieVideos } from "@/utils/utils";
+import { getMovie, getMovieCredits, getMovieVideos } from "@/utils/utils";
 import { notFound } from "next/navigation";
 
 export default async function MovieDetailsPage(
@@ -19,11 +19,12 @@ export default async function MovieDetailsPage(
     }
 
     const videos = await getMovieVideos(id)
+    const credits = await getMovieCredits(id)
     const filteredVideos = videos?.filter((video) => video.type === "Trailer") ?? [];
 
     return (
       <div className="overflow-hidden padding-x padding-y max-width">
-        <MovieDetails movie={movie} trailers={filteredVideos} />
+        <MovieDetails movie={movie} trailers={filteredVideos} credits={credits} />
       </div>
     );
   } catch {
