@@ -8,20 +8,15 @@ const Credit = ( { credit }: any) => {
       <ImageComponent  
         baseUrl={imageBaseUrl}
         imageUrl={credit.profile_path}
-        w="60"
-        h="20"
+        w="50"
+        h="40"
         alt={`image ${credit.name}`}
       ></ImageComponent>
       <div className='flex flex-col gap-1'>
         <p className="text-gray-200 text-m"> Name: {credit.name}</p>
-        <p className="text-gray-200 text-m"> {
-          credit.character ? 
-          "Character: " + credit.character : 
-          "Department: " + credit.known_for_department
-          }
-        </p>
+        <p className="text-gray-200 text-m"> { credit.character ? "Role: " + credit.character : '' } </p>
         {
-          credit.job ?  <p className="text-gray-200 text-m">Job:  { credit.job }</p>  : ""
+          credit.job ?  <p className="text-gray-200 text-m"> { credit.job }</p>  : ""
         }
       </div>
     </div>

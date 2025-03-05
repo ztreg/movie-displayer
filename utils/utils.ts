@@ -60,7 +60,7 @@ export async function getMovies(page: number = 1, searchText?: string, category?
   }
 
   
-  export async function getMovieCredits(movieId: string): Promise<MoveCredits> {
+  export async function getMovieCredits(movieId: string): Promise<MovieCredits> {
     const options = {
       method: 'GET',
       headers: {

@@ -53,7 +53,7 @@ const SearchBar = ()  => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search movies..."
-        className="w-full p-3 bg-transparent border border-gray-500 rounded-lg text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 dark:border-gray-300 dark:text-white dark:placeholder:text-gray-100 dark:focus:ring-pink-300"
+        className="w-full p-3 bg-purple-900 border border-pink-900 rounded-lg text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 dark:border-gray-300 dark:text-white dark:placeholder:text-gray-100 dark:focus:ring-pink-300"
       />
     </div>
   );
