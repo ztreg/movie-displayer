@@ -21,7 +21,7 @@ export default async function Home( props: Readonly<{ searchParams: Promise<{ pa
         </div>
       ): (
         <div className="home__error-container">
-          <h2 className="text-black text-xl font-bold">Oops, no results</h2>
+          <h2 className="text-white text-xl font-bold">Oops, no results</h2>
         </div>
       )}
     </div>

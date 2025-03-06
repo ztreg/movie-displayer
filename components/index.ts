@@ -1,5 +1,5 @@
 import MovieCard from './MovieCard'
-import SuspendedSearchBar from './SearchBar'
+import SearchBar from './SearchBar'
 import MovieDetails from './MovieDetails'
 import Navbar from './Navbar'
 import VideoPlayer from './VideoPlayer'
@@ -8,11 +8,13 @@ import ImageComponent from './ImageComponent'
 import RedirectHome from './RedirectHome'
 import Explore from './Explore'
 import Credit from './Credit'
+import Sorting from './Sorting'
+import Footer from './Footer'
 
 
 export {
     MovieCard,
-    SuspendedSearchBar,
+    SearchBar,
     MovieDetails,
     Navbar,
     VideoPlayer,
@@ -20,5 +22,7 @@ export {
     ImageComponent,
     RedirectHome,
     Explore,
-    Credit
+    Credit,
+    Sorting,
+    Footer
 }

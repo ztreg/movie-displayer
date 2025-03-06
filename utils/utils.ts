@@ -1,39 +1,34 @@
 import { Genre, Movie, MovieCredits, MovieDetailsType, Trailer } from "@/types/types";
 
 const API_URL = process.env.NEXT_PUBLIC_TMDB_API_URL;
-const ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
+const ACCESS_TOKEN = process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN;
 const TOKEN = `api_key=${ACCESS_TOKEN}`
 const SEARCH_URL = "search/movie?query="
 
-export async function getMovies(page: number = 1, searchText?: string, category?: string) {
-    const generalSorting = `include_adult=false&language=en-US&sort_by=title.asc&vote_count.gte=7000`
-    let fullUrl = ""
-    if (searchText) {
-     fullUrl = `${API_URL}/search/movie?query=${encodeURIComponent(searchText)}&${generalSorting}`
-     if (category) {
-       fullUrl = fullUrl + `with_genres=${category}`
-     }
-      
-    } else {
-      fullUrl = `${API_URL}/discover/movie?${generalSorting}`
-      if (category) {
-        fullUrl = fullUrl + `&with_genres=${category}`
-      }
-    }
-    fullUrl = fullUrl + `&page=${page}&${TOKEN}`
-    
-    try {
-        const res = await fetch(`${fullUrl}`);
-        if (!res.ok) throw new Error("Failed to fetch movies");        
-        const data = await res.json();
-        const movieResults: Movie[] = data.results
-        return movieResults; // Returns an array of 20 movies
-    } catch (error) {
-        console.log(error);
-        return []
-    }
-    
+export async function getMovies(page: number = 1, searchText?: string, category?: string, sort_by?: string) {
+  const generalSorting = "include_adult=false&language=en-US";
+  const baseUrl = searchText
+    ? `${API_URL}/search/movie?query=${encodeURIComponent(searchText)}&${generalSorting}`
+    : `${API_URL}/discover/movie?${generalSorting}`;
+
+  const params = new URLSearchParams({ page: page.toString() });
+
+  if (category) params.append("with_genres", category);
+  if (sort_by && !searchText) params.append("sort_by", sort_by);
+
+  const fullUrl = `${baseUrl}&${params.toString()}&${TOKEN}`;
+
+  try {
+    const res = await fetch(fullUrl);
+    if (!res.ok) throw new Error("Failed to fetch movies");
+
+    const data = await res.json();
+    return data.results as Movie[]; // Returns an array of 20 movies
+  } catch (error) {
+    console.error(error);
+    return [];
   }
+}
 
   export async function getMovieVideos(id: string): Promise<Trailer[]> {
     const options = {
@@ -81,11 +76,9 @@ export async function getMovies(page: number = 1, searchText?: string, category?
       console.log('error');
       
       if (error instanceof Error) {
-        // Handle error gracefully, e.g., log it or return a default movie
-        console.error(error.message); // You can log or return a default Movie object
+        console.error(error.message);
       }
-      // If you want to return something specific in case of error, use a fallback movie or an empty object
-      return {} as MovieDetailsType; // Return an empty object or a default movie
+      return {} as MovieCredits;
     }
     
     
@@ -105,11 +98,9 @@ export async function getMovies(page: number = 1, searchText?: string, category?
       console.log('error');
       
       if (error instanceof Error) {
-        // Handle error gracefully, e.g., log it or return a default movie
-        console.error(error.message); // You can log or return a default Movie object
+        console.error(error.message);
       }
-      // If you want to return something specific in case of error, use a fallback movie or an empty object
-      return {} as MovieDetailsType; // Return an empty object or a default movie
+      return {} as MovieDetailsType;
     }
     
   }
@@ -128,16 +119,13 @@ export async function getMovies(page: number = 1, searchText?: string, category?
       const res = await fetch(`${url}`, options);
       if (!res.ok) throw new Error("Failed to fetch genres");        
       const data = await res.json();
-
       return data.genres
     
     } catch (error: unknown) {
       if (error instanceof Error) {
-        // Handle error gracefully, e.g., log it or return a default movie
-        console.error(error.message); // You can log or return a default Movie object
+        console.error(error.message);
       }
-      // If you want to return something specific in case of error, use a fallback movie or an empty object
-      return []; // Return an empty object or a default movie
+      return [];
     }
 
   }
@@ -159,11 +147,9 @@ export async function getPopularMovies() {
   
   } catch (error: unknown) {
     if (error instanceof Error) {
-      // Handle error gracefully, e.g., log it or return a default movie
-      console.error(error.message); // You can log or return a default Movie object
+      console.error(error.message); 
     }
-    // If you want to return something specific in case of error, use a fallback movie or an empty object
-    return []; // Return an empty object or a default movie
+    return [];
   }
 }
 

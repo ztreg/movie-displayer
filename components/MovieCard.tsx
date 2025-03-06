@@ -24,15 +24,16 @@ const MovieCard = ({ movie, type }: MovieProps) => {
         </div>
       {
         type !== "explore" ? (
-          <div className="mt-4 flex justify-around items-center">
-          <span className="text-md text-gray-400">⭐ {roundedNumber(movie.vote_average)}/10</span>
-          <button className="px-4 py-2 bg-pink-500 text-gray-900 font-semibold rounded-lg hover:bg-pink-400 transition">
-            Details
-          </button>
-        </div>
-        ) : (
-          ""
-        )
+          <div className="mt-4 flex">
+            <span className="text-md text-gray-400">⭐ {roundedNumber(movie.vote_average)}/10</span>
+            <span className="text-md text-gray-100">⭐ Votes: { movie.vote_count }</span>
+            <button className="px-4 py-2 bg-pink-500 text-gray-900 font-semibold rounded-lg hover:bg-pink-400 transition">
+              Details
+            </button>
+          </div>
+          ) : (
+            ""
+          )
       }
     </Link>
   );

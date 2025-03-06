@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Navbar } from "@/components";
+import { Footer, Navbar } from "@/components";
 import { GenreProvider } from "@/contexts/GenreContext";
 
 export const metadata: Metadata = {
@@ -16,13 +16,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`min-h-screen bg-gradient-to-r from-purple-800 via-pink-600 to-red-500 text-white`}
+        className={`min-h-screen themed-bg-pattern text-white`}
       >
         <div className="bg-black/40 min-h-screen ">
 
          <GenreProvider>
           <Navbar></Navbar>
           {children}
+          <Footer></Footer>
         </GenreProvider>
     </div>
 

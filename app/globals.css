@@ -228,3 +228,11 @@
   background-color: #444;
   border-radius: 10px;
 }
+
+.themed-bg-pattern {
+  @apply bg-gradient-to-r from-purple-800 via-pink-600 to-red-500
+}
+
+.reverse-themed-bg-pattern {
+  @apply bg-gradient-to-r from-purple-600 via-pink-900 to-purple-800
+}

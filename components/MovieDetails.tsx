@@ -8,7 +8,8 @@ import { formatNumber, getPopularityRank, roundedNumber } from "@/utils/utils";
 
 const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
   const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
-  const isCreditsEmpty = !Array.isArray(credits.crew) || credits.crew.length < 1 || !credits
+  const isCrewsEmpty = !Array.isArray(credits.crew) || credits.crew.length < 1 || !credits
+  const isCastEmpty = !Array.isArray(credits.cast) || credits.cast.length < 1 || !credits
   
   return (
     <div className="movie__details-wrapper h-auto ">
@@ -29,24 +30,25 @@ const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
             <div> { movie.runtime} min </div>
           </div>
         </div>
-        <div className="relative w-full h-auto my-2 flex flex-row flex-wrap gap-6 bg-black/40 backdrop-blur-lg py-4 rounded-3xl">
-          <ImageComponent
-            baseUrl={imageBaseUrl}
-            imageUrl={movie.poster_path}
-            w="234"
-            h="40"
-            alt="image of movie poster"
-          ></ImageComponent>
+        <div className="relative w-full h-auto my-2 flex flex-row flex-wrap gap-6 bg-black/40 backdrop-blur-lg py-4 rounded-3xl justify-around">
+          <div className="relative h-[300px] w-[243px] object-contain rounded-3xl">
+            <ImageComponent
+              baseUrl={imageBaseUrl}
+              imageUrl={movie.poster_path}
+              alt="image of movie poster"
+            ></ImageComponent>
+          </div>
 
-          <Suspense fallback={<Loading />}> { trailers?.length && ( <VideoPlayer videoId={trailers[0].key}></VideoPlayer> ) } </Suspense>
+          <Suspense fallback={<Loading />}> { trailers?.length && ( <VideoPlayer videoId={trailers?.[0]?.key}></VideoPlayer> ) } </Suspense>
 
+        <div className="relative h-[300px] w-[400px] object-contain rounded-3xl m-0 p-0 bg-gradient-to-r from-gray-800 via-pink-800 to-gray-900 rounded-2x">
           <ImageComponent
             baseUrl={imageBaseUrl}
             imageUrl={movie.backdrop_path}
-            w={"410"}
-            h={"50"}
             alt="image of movie backdrop"
           ></ImageComponent>
+        </div>
+
         </div>
 
         <div className='flex-1 flex flex-col'>
@@ -73,32 +75,32 @@ const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full border-t-2">
               {/* Top Actors Section */}
               <div className="p-4 text-black-1 flex flex-col border-r-2">
-                {!isCreditsEmpty ? (
+                {!isCastEmpty ? (
                   <div className="p-4 text-black-1 flex flex-col gap-4">
                     <h2 className="pb-2 text-lg">Top Actors</h2>
                     {credits?.cast?.map((cast, i) => (
-                      i < 5 && <Credit key={cast.id} credit={cast} />
+                      i < 5 && <Credit key={`${cast.id}-${i}`} credit={cast} />
                     ))}
                   </div>
                 ) : (
                   <div className="home__error-container">
-                    <h2 className="text-black text-xl font-bold">Oops, no results</h2>
+                    <h2 className="text-white text-xl font-bold">Oops, no results</h2>
                   </div>
                 )}
               </div>
 
               {/* Key Crew Members Section */}
               <div className="p-4 text-black-1 flex flex-col">
-                {!isCreditsEmpty ? (
+                {!isCrewsEmpty ? (
                   <div className="p-4 text-black-1 flex flex-col gap-4">
                     <h2 className="pb-2 text-lg">Key Crew Members</h2>
                     {credits?.crew?.map((crew, i) => (
-                      i < 5 && <Credit key={crew.id} credit={crew} />
+                      i < 5 && <Credit key={`${crew.id}-${i}`} credit={crew} />
                     ))}
                   </div>
                   ) : (
                     <div className="home__error-container">
-                      <h2 className="text-black text-xl font-bold">Oops, no results</h2>
+                      <h2 className="text-white text-xl font-bold">Oops, no results</h2>
                     </div>
                   )}
               </div>

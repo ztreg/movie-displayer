@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, useMemo } from "react";
-import { getMovieGenres } from "@/utils/utils"; // Import the function
+import { MOVIE_GENRES } from "@/constants/constants";
 
 const GenreContext = createContext<{ genres: { id: number; name: string }[] }>({ genres: [] });
 
@@ -9,17 +9,11 @@ export function GenreProvider({ children }: Readonly<{ children: React.ReactNode
   const [genres, setGenres] = useState<{ id: number; name: string }[]>([]);
 
   useEffect(() => {
-    async function fetchGenres() {
-      if (genres?.length === 0) {
-          const data = await getMovieGenres();
-          if (data) {
-            setGenres(data);
-          }
-      }
-    }
-
     if (genres.length === 0) {
-      fetchGenres();
+      const data = MOVIE_GENRES
+      if (data) {
+        setGenres(data);
+      }
     }
   }, [genres.length]);
 

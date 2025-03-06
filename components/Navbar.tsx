@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from "next/image";
-import { SuspendedSearchBar } from './'
+import { SearchBar } from './'
 import { useSearchParams  } from 'next/navigation';
 import { useGenres } from '@/contexts/GenreContext';
 import { useEffect, useState } from 'react';
@@ -56,22 +56,25 @@ const Navbar = () => {
                                 height={20}
                                 alt="Category menu"
                                 className='ml-2 text-white rounded-3xl'
+                                style={{ width: "20px", height: "20px" }} // Fixes aspect ratio warning
                             />
                         </div>
+                        <div className='text-pink-300 font-bold'>
                         { activeCategory ?? ( ` (${activeCategory} )` ) }
+                            </div>
                     </button>
                 </div>
-                <SuspendedSearchBar />
+                <SearchBar />
 
                 {/* Render genres below button if visible */}
                 {isGenresVisible && (
-                    <div className="mt-1 flex flex-wrap">
+                    <div className="mt-1 flex flex-wrap bg-gradient-to-r from-purple-900 via-pink-900 to-purple-600">
                         {genres.map((genre) => (
                         <Link
                             onClick={handleToggleGenres}
                             href={`/movies?category=${genre.id}`}
                             key={genre.id}
-                            className={`p-4 w-1/2 border border-pink-500 bg-pink-950 text-pink-300 rounded-lg hover:bg-pink-800 hover:text-white transition-all ${
+                            className={`p-4 w-1/2 border border-pink-500  hover:bg-pink-700 hover:text-white transition-all ${
                             isActive(`/movies?category=${genre.id}`)
                                 ? "border-b-2 border-white"
                                 : "border-transparent"

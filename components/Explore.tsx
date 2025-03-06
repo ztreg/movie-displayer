@@ -9,7 +9,7 @@ const Explore = ({ movies }: CarouselProps) => {
 
   const nextSlide = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 256, behavior: 'smooth' });
+      carouselRef.current.scrollBy({ left: 256, behavior: 'smooth', });
     }
   };
 
@@ -17,11 +17,13 @@ const Explore = ({ movies }: CarouselProps) => {
     if (carouselRef.current) {
       carouselRef.current.scrollBy({ left: -256, behavior: 'smooth' });
     }
+
+    
   };
 
   return (
-    <div className="pt-24 relative w-full max-w-7xl mx-auto">
-      <h1 className='flex justify-center text-2xl p-4 text-white font-bold'>🔥 Trending 🔥</h1>
+    <div className="pt-28 relative w-full max-w-7xl mx-auto">
+      <h1 className='flex justify-center text-2xl p-4 text-white font-bold'>Trending</h1>
       <div className="relative flex items-center">
         <button 
           onClick={prevSlide} 
@@ -36,9 +38,8 @@ const Explore = ({ movies }: CarouselProps) => {
         >
           {movies?.map((movie: Movie, index) => (
               <div key={movie.id} className='text-center p-0 mb-1 font-semibold'>
-                <h2 className='mb-3'># {index + 1}
-                </h2>
                 <MovieCard  movie={movie} type="explore" />
+                {/* <h2 className=''>{index + 1}</h2> */}
               </div>
           ))}
         </div>
