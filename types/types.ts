@@ -142,6 +142,7 @@ export interface MovieProps {
 
 export interface CarouselProps {
   movies: Movie[]
+  text: string
 }
 
 export interface CreditProps {

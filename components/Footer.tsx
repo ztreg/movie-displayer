@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-gray-900 text-white py-4 bottom-0 fixed mt-4">
+    <footer className="w-full bg-gray-900 text-white py-4 fixed bottom-0 mt-4">
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between  h-[40px]">
         <p className="text-sm">&copy; {new Date().getFullYear()} Jonas Gertz. All rights reserved.</p>
 
@@ -29,7 +29,7 @@ const Footer = () => {
           rel="noopener noreferrer"
           className="text-pink-400 hover:text-pink-600 transition animate-blink"
         >
-          Youtube 
+          Free Stuff! Wow! 
         </Link>
       </div>
     </footer>

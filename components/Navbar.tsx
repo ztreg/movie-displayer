@@ -37,7 +37,7 @@ const Navbar = () => {
       };
     
     return (
-        <header className="w-full absolute z-10 bg-gray-800 p-2">
+        <header className="w-full z-10 bg-gray-800 p-2 relative">
             <nav className="max-w-[1440px] mx-auto flex flex-row justify-between sm:px-16 px-6 py-2 h-[auto] flex-wrap">
                 <div className="flex gap-6 flex-wrap items-center">
                 <Link onClick={() => setIsGenresVisible(false)}  href="/" className="relative text-xl font-semibold flex items-center hover_line-animation">

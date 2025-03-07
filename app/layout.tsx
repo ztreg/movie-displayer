@@ -22,7 +22,7 @@ export default function RootLayout({
 
          <GenreProvider>
           <Navbar></Navbar>
-          {children}
+            {children}
           <Footer></Footer>
         </GenreProvider>
     </div>

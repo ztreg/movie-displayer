@@ -42,6 +42,6 @@ Om ett bibliotek används ska det finnas en god anledning för det. Vi vill bed�
 todo: navbar, stäng ner search när man klickar bort eller trycker på escape eller klickar på en länk
 fixa navbaren så det ser bra ut i mobil
 fixa youtube spelaren i mobil
-fixa caching
+fixa caching - check
 
 

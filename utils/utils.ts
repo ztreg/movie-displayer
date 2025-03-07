@@ -80,11 +80,19 @@ export async function getPopularMovies() {
   return fetchData<Movie[]>(url);
 }
 
+// ✅ Get popular movies
+export async function getUpcomingMovies() {
+  const url = `${API_URL}/movie/upcoming?language=en-US&page=1&api_key=${ACCESS_TOKEN}`;
+  return fetchData<Movie[]>(url);
+}
+
 // 🔢 Utility Functions
 export const roundedNumber = (num: number) => Math.round(num * 10) / 10;
 
-export const formatNumber = (num: number) =>
-  num >= 1_000_000 ? (num / 1_000_000).toFixed(2).replace(".", ",") + " million" : new Intl.NumberFormat("sv-SE").format(num);
+export const formatNumber = (num: number) => {
+  if(num === 0) return "Missing information"
+  return num >= 1_000_000 ? (num / 1_000_000).toFixed(2).replace(".", ",") + " million" : num;
+}
 
 
 export const getPopularityRank = (popularity: number): string => {
@@ -94,3 +102,8 @@ export const getPopularityRank = (popularity: number): string => {
   if (popularity >= 10) return "Low (2-3/10)";
   return "Very Low (1/10)";
 };
+
+export const getYearFromDate = (date: string): string => {
+  const parsedDate = new Date(date);
+  return parsedDate.getFullYear().toString();
+}

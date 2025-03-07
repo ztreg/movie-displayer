@@ -20,7 +20,7 @@ export default async function MoviePage( props: Readonly<{ searchParams: Promise
  return (
    page && 
    <div className='overflow-hidden padding-x padding-y max-width'>
-    <div className="mt-20">
+    <div className="">
     <Sorting></Sorting>
     </div>
      {!isDataEmpty ? (

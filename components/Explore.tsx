@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { CarouselProps, Movie } from '@/types/types';
 import MovieCard from './MovieCard';
 
-const Explore = ({ movies }: CarouselProps) => {
+const Explore = ({ movies, text }: CarouselProps) => {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const nextSlide = () => {
@@ -22,8 +22,8 @@ const Explore = ({ movies }: CarouselProps) => {
   };
 
   return (
-    <div className="pt-28 relative w-full max-w-7xl mx-auto">
-      <h1 className='flex justify-center text-2xl p-4 text-white font-bold'>Trending</h1>
+    <div className="relative w-full max-w-7xl mx-auto">
+      <h1 className='flex justify-center text-2xl p-4 text-white font-bold'>{text}</h1>
       <div className="relative flex items-center">
         <button 
           onClick={prevSlide} 

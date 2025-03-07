@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, JSX } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, JSX, useRef } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { ImageComponent } from ".";
 
 interface Movie {
@@ -17,6 +17,11 @@ const SearchBar = () => {
   const [results, setResults] = useState<Movie[]>([]); // Store the fetched movie results
   const [isLoading, setIsLoading] = useState<boolean>(false);  // Show loading state while fetching data
   const imageBaseUrl = "https://image.tmdb.org/t/p/w185";  // Base URL for the movie poster images
+  const router = useRouter();
+  const pathname = usePathname();  // Use pathname to detect route changes
+  
+  // Ref to handle click outside the search bar
+  const searchBarRef = useRef<HTMLInputElement>(null);
 
   // Debounce the query input (300ms delay)
   useEffect(() => {
@@ -54,6 +59,43 @@ const SearchBar = () => {
     fetchMovies();
   }, [debouncedQuery]);  // Trigger the fetch when debouncedQuery changes
 
+  // Close the search when escape key is pressed or when clicking away
+  const handleCloseSearch = () => {
+    setQuery("");
+  };
+
+  // Reset search results and query when the pathname changes
+  useEffect(() => {
+    setQuery("");  // Clear query when pathname changes
+    setResults([]);  // Clear results when pathname changes
+  }, [pathname]);  // Watch for pathname changes
+
+  useEffect(() => {
+    // Close the search on Escape key press
+    const handleEscapeKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleCloseSearch();
+      }
+    };
+
+    // Close the search if user clicks outside the search bar
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchBarRef.current && !searchBarRef.current.contains(e.target as Node)) {
+        handleCloseSearch();
+      }
+    };
+
+    // Add event listeners for Escape key and clicking outside
+    window.addEventListener("keydown", handleEscapeKey);
+    window.addEventListener("mousedown", handleClickOutside);
+
+    // Clean up event listeners on component unmount
+    return () => {
+      window.removeEventListener("keydown", handleEscapeKey);
+      window.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   // Determine what to display in the dropdown
   let dropdownContent: JSX.Element;
 
@@ -63,10 +105,11 @@ const SearchBar = () => {
     dropdownContent = (
       <>
         {results.map((movie) => (
-          <div
+          <button
             key={movie.id}
             className="p-3 hover:bg-gray-800 cursor-pointer flex items-center h-[60px] w-full z-10"
-            onClick={() => window.location.href = `/movies/${movie.id}`}  // Redirect to movie detail page
+            onClick={() => router.replace(`/movies/${movie.id}`)}
+            aria-label={`Go to details for ${movie.title}`}
           >
             {movie.poster_path && (
               <div className="relative w-[50px] h-[50px] my-2 object-contain">
@@ -74,11 +117,11 @@ const SearchBar = () => {
                   baseUrl={imageBaseUrl}
                   imageUrl={movie.poster_path}
                   alt="image of movie poster"
-                ></ImageComponent>
+                />
               </div>
             )}
             <p className="flex flex-wrap text-white text-[14px]">{movie.title} - ({movie.release_date?.slice(0, 4) || "?"})</p>
-          </div>
+          </button>
         ))}
       </>
     );
@@ -87,18 +130,20 @@ const SearchBar = () => {
   }
 
   return (
-    <div className="relative w-[390px] max-w-lg flex flex-col">
+    <div className="relative w-[390px] max-w-lg flex flex-col" ref={searchBarRef}>
       <input
         type="text"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}  // Update query on input change
+        onChange={(e) => setQuery(e.target.value)}
         placeholder="Search movies..."
         className="w-full p-3 bg-gray-900 border border-pink-900 rounded-lg text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
       />
 
       {/* Show dropdown if there are results */}
       {query && (
-        <div className="absolute top-full left-0 mt-1 w-full bg-gray-900 border border-gray-700 rounded-lg shadow-lg max-h-96 overflow-y-auto">
+        <div
+          className="absolute top-full left-0 mt-1 w-full bg-gray-900 border border-gray-700 rounded-lg shadow-lg max-h-96 overflow-y-auto"
+        >
           {dropdownContent}
         </div>
       )}

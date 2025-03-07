@@ -4,7 +4,7 @@ import { MovieDetailsProps } from "@/types/types";
 import { Suspense } from "react";
 import { VideoPlayer, Category, ImageComponent, Credit } from "./";
 import Loading from "@/app/loading";
-import { formatNumber, getPopularityRank, roundedNumber } from "@/utils/utils";
+import { formatNumber, getPopularityRank, getYearFromDate, roundedNumber } from "@/utils/utils";
 
 const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
   const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
@@ -15,7 +15,7 @@ const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
     <div className="movie__details-wrapper h-auto ">
       <div className="p-6 mt-2 min-h-screen bg-gradient-to-r from-gray-800 via-purple-950 to-gray-900 text-white rounded-3xl">
         <div className="">
-          <div className="flex justify-between flex-wrap">
+          <div className="flex justify-between flex-wrap px-3">
             <div className="text-[26px] leading-[40px] font-bold capitalize">
               {movie.title} 
             </div>
@@ -24,8 +24,8 @@ const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
               <p className="text-[14px]">Votes: { movie.vote_count }</p>
             </div>
           </div> 
-          <div className="flex flex-wrap gap-4 text-gray-400">
-            <div> { movie.release_date }   </div>
+          <div className="flex flex-wrap gap-4 text-gray-400 px-3">
+            <div> { getYearFromDate(movie.release_date) } </div>
             <div> { movie.adult ? 'R' : 'PG-13'} </div>
             <div> { movie.runtime} min </div>
           </div>

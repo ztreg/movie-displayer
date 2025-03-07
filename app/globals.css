@@ -80,7 +80,7 @@
 }
 
 .home__cars-wrapper {
-  @apply grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-14;
+  @apply grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-8 pt-3;
 }
 
 .home__error-container {
@@ -89,7 +89,7 @@
 
 /* END: Home styles */
 .movie__details-wrapper {
-  @apply w-full gap-8 pt-14;
+  @apply w-full gap-8;
 }
 
 .movie__details-content {
