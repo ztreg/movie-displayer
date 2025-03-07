@@ -5,9 +5,7 @@ import { ImageComponent } from "./index";
 import { roundedNumber } from "@/utils/utils";
 
 const MovieCard = ({ movie, type }: MovieProps) => {
-
   const imageBaseUrl = "https://image.tmdb.org/t/p/w185";
-
   return (
     <Link href={`/movies/${movie.id}` } className="min-w-[240px] flex flex-col flex-start scale-100 hover:scale-105 ease-in duration-100 bg-gray-900 text-white p-6 rounded-xl border border-pink-500/60 shadow-lg shadow-pink-500/20">
         <div className="car-card__content ">
@@ -24,12 +22,17 @@ const MovieCard = ({ movie, type }: MovieProps) => {
         </div>
       {
         type !== "explore" ? (
-          <div className="mt-4 flex">
-            <span className="text-md text-gray-400">⭐ {roundedNumber(movie.vote_average)}/10</span>
-            <span className="text-md text-gray-100">⭐ Votes: { movie.vote_count }</span>
-            <button className="px-4 py-2 bg-pink-500 text-gray-900 font-semibold rounded-lg hover:bg-pink-400 transition">
-              Details
-            </button>
+          <div className="mt-4 flex justify-between gap-2 flex-wrap">
+            <div>
+              <span className="text-md text-gray-400">⭐ {roundedNumber(movie.vote_average)}/10</span>
+              <span className="text-md text-gray-100">Votes: { movie.vote_count }</span>
+            </div>
+            <div>
+              <span className="text-md text-gray-100">Released: { movie.release_date }</span>
+              <button className="px-4 py-2 bg-pink-500 text-gray-900 font-semibold rounded-lg hover:bg-pink-400 transition">
+                Details
+              </button>
+            </div>
           </div>
           ) : (
             ""

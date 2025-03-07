@@ -41,10 +41,10 @@ const Navbar = () => {
             <nav className="max-w-[1440px] mx-auto flex flex-row justify-between sm:px-16 px-6 py-2 h-[auto] flex-wrap">
                 <div className="flex gap-6 flex-wrap items-center">
                 <Link onClick={() => setIsGenresVisible(false)}  href="/" className="relative text-xl font-semibold flex items-center hover_line-animation">
-                       Explore 
+                       Home 
                     </Link>
                     <Link onClick={() => setIsGenresVisible(false)}  href="/movies" className="relative text-xl font-semibold flex items-center hover_line-animation">
-                       Movies 
+                       Browse 
                     </Link>
                     <button onClick={handleToggleGenres} className="text-xl font-semibold flex items-center pr-2 flex-wrap">
                         <div className='flex hover:underline pr-2'>

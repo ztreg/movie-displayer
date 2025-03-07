@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, JSX } from "react";
-import { getMovies } from "@/utils/utils";
 import { useRouter } from "next/navigation";
 import { ImageComponent } from ".";
 
@@ -13,35 +12,47 @@ interface Movie {
 }
 
 const SearchBar = () => {
-  const [query, setQuery] = useState<string>("");
-  const [debouncedQuery, setDebouncedQuery] = useState<string>("");
-  const [results, setResults] = useState<Movie[]>([]); // Store fetched movies
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const router = useRouter()
-  const imageBaseUrl = "https://image.tmdb.org/t/p/w185";
+  const [query, setQuery] = useState<string>("");  // Track the input query
+  const [debouncedQuery, setDebouncedQuery] = useState<string>("");  // Track the debounced query
+  const [results, setResults] = useState<Movie[]>([]); // Store the fetched movie results
+  const [isLoading, setIsLoading] = useState<boolean>(false);  // Show loading state while fetching data
+  const imageBaseUrl = "https://image.tmdb.org/t/p/w185";  // Base URL for the movie poster images
+
   // Debounce the query input (300ms delay)
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedQuery(query);
+      setDebouncedQuery(query);  // Update the debounced query after 300ms
     }, 300);
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timer);  // Clear the timeout on cleanup
   }, [query]);
 
   // Fetch movies when the debounced query changes
   useEffect(() => {
     if (!debouncedQuery) {
-      setResults([]);
+      setResults([]);  // Clear results when there is no query
       return;
     }
+
     const fetchMovies = async () => {
-      setIsLoading(true);
-      const response = await getMovies(1, debouncedQuery)
-      setResults(response);
-      setIsLoading(false);
+      setIsLoading(true);  // Set loading state to true while fetching
+      try {
+        const response = await fetch(`/api/movies?query=${debouncedQuery}&page=1`);
+        if (response.ok) {
+          const data = await response.json();
+          setResults(data);  // Set the fetched movie results
+        } else {
+          setResults([]);  // No results found
+        }
+      } catch (error) {
+        console.error(error);  // Handle any errors that occur during fetching
+        setResults([]);  // Clear results if there was an error
+      } finally {
+        setIsLoading(false);  // Set loading state to false after fetching
+      }
     };
 
     fetchMovies();
-  }, [debouncedQuery]);
+  }, [debouncedQuery]);  // Trigger the fetch when debouncedQuery changes
 
   // Determine what to display in the dropdown
   let dropdownContent: JSX.Element;
@@ -52,10 +63,10 @@ const SearchBar = () => {
     dropdownContent = (
       <>
         {results.map((movie) => (
-          <button
+          <div
             key={movie.id}
-            className="p-3 hover:bg-gray-800 cursor-pointer flex items-center h-[60px] w-full z-10 "
-            onClick={() => router.replace(`/movies/${movie.id}`)}
+            className="p-3 hover:bg-gray-800 cursor-pointer flex items-center h-[60px] w-full z-10"
+            onClick={() => window.location.href = `/movies/${movie.id}`}  // Redirect to movie detail page
           >
             {movie.poster_path && (
               <div className="relative w-[50px] h-[50px] my-2 object-contain">
@@ -66,8 +77,8 @@ const SearchBar = () => {
                 ></ImageComponent>
               </div>
             )}
-              <p className="flex flex-wrap text-white text-[14px]">{movie.title} -  ({movie.release_date?.slice(0, 4) || "?"})</p>
-          </button>
+            <p className="flex flex-wrap text-white text-[14px]">{movie.title} - ({movie.release_date?.slice(0, 4) || "?"})</p>
+          </div>
         ))}
       </>
     );
@@ -80,7 +91,7 @@ const SearchBar = () => {
       <input
         type="text"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => setQuery(e.target.value)}  // Update query on input change
         placeholder="Search movies..."
         className="w-full p-3 bg-gray-900 border border-pink-900 rounded-lg text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500"
       />
@@ -95,5 +106,4 @@ const SearchBar = () => {
   );
 };
 
-// Wrapping the SearchBar with Suspense
-export default SearchBar
+export default SearchBar;

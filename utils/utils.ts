@@ -1,147 +1,91 @@
 import { Genre, Movie, MovieCredits, MovieDetailsType, Trailer } from "@/types/types";
 
 const API_URL = process.env.NEXT_PUBLIC_TMDB_API_URL;
-const ACCESS_TOKEN = process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN;
-const TOKEN = `api_key=${ACCESS_TOKEN}`
-const SEARCH_URL = "search/movie?query="
+const ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
+const BEARER_TOKEN = process.env.TMDB_BEARER_TOKEN;
 
-const options = {
+const optionsGet = {
   method: 'GET',
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1YTcxOGE5YWU4ZmU1MzAyNTY3YTA2Nzc5MmQwZGY0YiIsIm5iZiI6MTc0MDE0ODA0OS4wMzAwMDAyLCJzdWIiOiI2N2I4OGQ1MTQ0NGRkN2ZjZWZiYTdlYzAiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.kRfrjrOLDy2rm4DDipnzhByo-V4CAzfPsNXtgWg8mn0'
+    Authorization: `Bearer ${BEARER_TOKEN}`
   },
   next: { revalidate: 60 } 
 };
 
-export async function getMovies(page: number = 1, searchText?: string, category?: string, sort_by?: string) {
-  const generalSorting = "include_adult=false&language=en-US";
-  const baseUrl = searchText
-    ? `${API_URL}/search/movie?query=${encodeURIComponent(searchText)}&${generalSorting}`
-    : `${API_URL}/discover/movie?${generalSorting}`;
+// ✅ Centralized fetch function for cleaner code & better error handling
+async function fetchData<T>(url: string): Promise<T | null> {
+  try {
+    const res = await fetch(url, optionsGet);
 
-  const params = new URLSearchParams({ page: page.toString() });
+    if (!res.ok) throw new Error(`Request failed: ${res.statusText}`);
+    const data = await res.json();
+
+    // Handle different response structures
+    return data.results ? (data.results as T) : (data as T);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
+// ✅ Get movies based on search/category/sort
+export async function getMovies(page: number = 1, searchText?: string, category?: string, sort_by = "vote_average.desc") {
+  const baseUrl = `${API_URL}/discover/movie`;
+
+  const params = new URLSearchParams({
+    include_adult: "false",
+    include_video: "false",
+    language: "en-US",
+    "vote_count.gte": "1000",
+    page: page.toString(),
+  });
 
   if (category) params.append("with_genres", category);
-  if (sort_by && !searchText) params.append("sort_by", sort_by);
+  if (sort_by) params.append("sort_by", sort_by);
+  params.append("api_key", ACCESS_TOKEN ?? "");
 
-  const fullUrl = `${baseUrl}&${params.toString()}`;
-
-  try {
-    const res = await fetch(fullUrl, options);
-    if (!res.ok) throw new Error("Failed to fetch movies");
-
-    const data = await res.json();
-    return data.results as Movie[]; // Returns an array of 20 movies
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
+  // Correct the construction of the URL
+  const fullUrl = `${baseUrl}?${params.toString()}`;
+  
+  return fetchData<Movie[]>(fullUrl);
 }
 
-  export async function getMovieVideos(id: string): Promise<Trailer[]> {
+// ✅ Get movie trailers
+export async function getMovieVideos(id: string) {
+  const url = `${API_URL}/movie/${id}/videos?language=en-US&api_key=${ACCESS_TOKEN}`;
+  return fetchData<Trailer[]>(url);
+}
 
-    const url = `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`
-      
-    try {
-        const res = await fetch(`${url}`, options);
-        if (!res.ok) throw new Error("Failed to fetch movies");        
-        const data = await res.json();   
-        const movieResults: Trailer[] = data.results
-        return movieResults; // Returns an array of 20 movies
-    } catch (error) {
-        console.log(error);
-        return []
-    }
+// ✅ Get movie credits (cast & crew)
+export async function getMovieCredits(movieId: string) {
+  const url = `${API_URL}/movie/${movieId}/credits?language=en-US&api_key=${ACCESS_TOKEN}`;
+  return fetchData<MovieCredits>(url);
+}
 
-    
-  }
+// ✅ Get full movie details
+export async function getMovie(id: string) {
+  const url = `${API_URL}/movie/${id}?language=en-US&api_key=${ACCESS_TOKEN}`;
+  return fetchData<MovieDetailsType>(url);
+}
 
-  
-  export async function getMovieCredits(movieId: string): Promise<MovieCredits> {
-    try {
-      const res = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`, options)
+// ✅ Get movie genres
+export async function getMovieGenres() {
+  const url = `${API_URL}/genre/movie/list?language=en-US&api_key=${ACCESS_TOKEN}`;
+  return fetchData<Genre[]>(url);
+}
 
-      if (!res.ok) throw new Error("Failed to fetch movies");        
-      const data = await res.json();
-      const movieResults: MovieCredits = data
-      return movieResults; // Returns an array of 20 movies
-    
-    } catch (error: unknown) {
-      console.log('error');
-      
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-      return {} as MovieCredits;
-    }
-    
-    
-  }
-
-
-  export async function getMovie(id: string): Promise<MovieDetailsType> {
-    try {
-      const res = await fetch(`${API_URL}/movie/${id}?language=en-US&`, options);
-
-      if (!res.ok) throw new Error("Failed to fetch movies");        
-      const data = await res.json();
-      const movieResults: MovieDetailsType = data
-      return movieResults; // Returns an array of 20 movies
-    
-    } catch (error: unknown) {
-      console.log('error');
-      
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-      return {} as MovieDetailsType;
-    }
-    
-  }
-
-  export async function getMovieGenres(): Promise<Genre[]> {
-    const url = `${API_URL}/genre/movie/list`
-
-    try {
-      const res = await fetch(`${url}`, options);
-      if (!res.ok) throw new Error("Failed to fetch genres");        
-      const data = await res.json();
-      return data.genres
-    
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error(error.message);
-      }
-      return [];
-    }
-
-  }
-
+// ✅ Get popular movies
 export async function getPopularMovies() {
-  const url = `${API_URL}/movie/popular?language=en-US&page=1`
-  try {
-    const res = await fetch(`${url}`, options);
-    if (!res.ok) throw new Error("Failed to fetch genres");        
-    const data = await res.json();
-    return data.results
-  
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error(error.message); 
-    }
-    return [];
-  }
+  const url = `${API_URL}/movie/popular?language=en-US&page=1&api_key=${ACCESS_TOKEN}`;
+  return fetchData<Movie[]>(url);
 }
 
-export const roundedNumber = (decimalNumber: number) => Math.round(decimalNumber * 10) / 10
+// 🔢 Utility Functions
+export const roundedNumber = (num: number) => Math.round(num * 10) / 10;
 
+export const formatNumber = (num: number) =>
+  num >= 1_000_000 ? (num / 1_000_000).toFixed(2).replace(".", ",") + " million" : new Intl.NumberFormat("sv-SE").format(num);
 
-export const formatNumber = (num: number) => {
-  return num >= 1_000_000 
-    ? (num / 1_000_000).toFixed(2).replace('.', ',') + " million" 
-    : new Intl.NumberFormat('sv-SE').format(num);
-};
 
 export const getPopularityRank = (popularity: number): string => {
   if (popularity >= 300) return "Very High (9-10/10)";
@@ -150,4 +94,3 @@ export const getPopularityRank = (popularity: number): string => {
   if (popularity >= 10) return "Low (2-3/10)";
   return "Very Low (1/10)";
 };
-

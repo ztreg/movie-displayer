@@ -4,11 +4,12 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-gray-900 text-white py-4 mt-10 bottom-0 fixed">
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between  h-[80px]">
+    <footer className="w-full bg-gray-900 text-white py-4 bottom-0 fixed mt-4">
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between  h-[40px]">
         <p className="text-sm">&copy; {new Date().getFullYear()} Jonas Gertz. All rights reserved.</p>
 
-        <Link className="flex items-center justify-center text-pink-400 hover:text-pink-600 transition"           href="https://github.com/ztreg" 
+        <Link className="flex items-center justify-center text-pink-400 hover:text-pink-600 transition" 
+          href="https://github.com/ztreg" 
           target="_blank" 
           rel="noopener noreferrer">
           GitHub
