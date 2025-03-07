@@ -39,3 +39,9 @@ Att din kod håller hög kvalitet.
 
 Om ett bibliotek används ska det finnas en god anledning för det. Vi vill bedöma dig och inte biblioteket, om du däremot kan visa på en välarbetad användning av ett bibliotek ser vi det som positivt.
 
+todo: navbar, stäng ner search när man klickar bort eller trycker på escape eller klickar på en länk
+fixa navbaren så det ser bra ut i mobil
+fixa youtube spelaren i mobil
+fixa caching
+
+

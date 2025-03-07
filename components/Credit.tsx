@@ -4,7 +4,7 @@ import ImageComponent from './ImageComponent';
 const Credit = ( { credit }: any) => {
   const imageBaseUrl = "https://image.tmdb.org/t/p/w154";
   return (
-    <div className='flex gap-4 h-[80px]'>
+    <div className='flex gap-4 min-h-[60px] h-[auto]'>
       <div className='relative w-[50px] h-[50px] my-2 object-contain'>
         <ImageComponent  
           baseUrl={imageBaseUrl}

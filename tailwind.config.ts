@@ -11,6 +11,15 @@ module.exports = {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
       },
+      animation: {
+        blink: "blink 1s infinite",
+      },
+      keyframes: {
+        blink: {
+          "0%, 100%": { opacity: 1, scale: "120%" },
+          "50%": { opacity: 0.4, scale: "90%"  },
+        },
+      },
       colors: {
         "black-100": "#2B2C35",
         "primary-blue": {

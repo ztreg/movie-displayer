@@ -37,8 +37,8 @@ const Navbar = () => {
       };
     
     return (
-        <header className="w-full absolute z-10 mb-6">
-            <nav className="max-w-[1440px] mx-auto flex flex-row justify-between sm:px-16 px-6 py-4 mb-6 flex-wrap">
+        <header className="w-full absolute z-10 bg-gray-800 p-2">
+            <nav className="max-w-[1440px] mx-auto flex flex-row justify-between sm:px-16 px-6 py-2 h-[auto] flex-wrap">
                 <div className="flex gap-6 flex-wrap items-center">
                 <Link onClick={() => setIsGenresVisible(false)}  href="/" className="relative text-xl font-semibold flex items-center hover_line-animation">
                        Explore 
@@ -59,9 +59,7 @@ const Navbar = () => {
                                 style={{ width: "20px", height: "20px" }} // Fixes aspect ratio warning
                             />
                         </div>
-                        <div className='text-pink-300 font-bold'>
-                        { activeCategory ?? ( ` (${activeCategory} )` ) }
-                            </div>
+                        <div className='text-pink-300 font-bold'>{ activeCategory ?? ( ` (${activeCategory} )` ) }</div>
                     </button>
                 </div>
                 <SearchBar />
@@ -70,18 +68,18 @@ const Navbar = () => {
                 {isGenresVisible && (
                     <div className="mt-1 flex flex-wrap bg-gradient-to-r from-purple-900 via-pink-900 to-purple-600">
                         {genres.map((genre) => (
-                        <Link
-                            onClick={handleToggleGenres}
-                            href={`/movies?category=${genre.id}`}
-                            key={genre.id}
-                            className={`p-4 w-1/2 border border-pink-500  hover:bg-pink-700 hover:text-white transition-all ${
-                            isActive(`/movies?category=${genre.id}`)
-                                ? "border-b-2 border-white"
-                                : "border-transparent"
-                            }`}
-                        >
-                            <p className="font-semibold">{genre.name}</p>
-                        </Link>
+                            <Link
+                                onClick={handleToggleGenres}
+                                href={`/movies?category=${genre.id}`}
+                                key={genre.id}
+                                className={`p-4 w-1/2 border border-pink-500  hover:bg-pink-700 hover:text-white transition-all ${
+                                isActive(`/movies?category=${genre.id}`)
+                                    ? "border-b-2 border-white"
+                                    : "border-transparent"
+                                }`}
+                            >
+                                <p className="font-semibold">{genre.name}</p>
+                            </Link>
                         ))}
                     </div>
                     )}
