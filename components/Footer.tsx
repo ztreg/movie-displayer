@@ -1,36 +1,29 @@
-
 import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-gray-900 text-white py-4 fixed bottom-0 mt-4">
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between  h-[40px]">
-        <p className="text-sm">&copy; {new Date().getFullYear()} Jonas Gertz. All rights reserved.</p>
+    <footer className="w-full bg-gray-900 text-white py-6 mt-8">
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4 px-6">
+        
+        {/* Branding */}
+        <p className="text-sm text-gray-400">
+          &copy; {new Date().getFullYear()} Jonas Gertz. No rights reserved.
+        </p>
 
-        <Link className="flex items-center justify-center text-pink-400 hover:text-pink-600 transition" 
-          href="https://github.com/ztreg" 
-          target="_blank" 
-          rel="noopener noreferrer">
-          GitHub
-          <Image
-            src="/icons8-github.svg"
-            width={32}
-            height={32}
-            priority
-            alt="Github logo"
-          />
 
-        </Link>
+        {/* Social Links */}
+        <div className="flex space-x-6">
+          <Link href="https://github.com/ztreg" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-pink-400 hover:text-pink-600 transition">
+            <Image src="/icons8-github.svg" width={24} height={24} alt="GitHub logo" />
+            GitHub
+          </Link>
 
-        <Link 
-          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="text-pink-400 hover:text-pink-600 transition animate-blink"
-        >
-          Free Stuff! Wow! 
-        </Link>
+          <Link href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:text-pink-600 transition animate-blink">
+            Free Stuff! 🎁
+          </Link>
+        </div>
+
       </div>
     </footer>
   );

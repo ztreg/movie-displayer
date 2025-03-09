@@ -1,6 +1,7 @@
 import React from 'react'
 import ImageComponent from './ImageComponent';
 
+// Crew Or Cast Member
 const Credit = ( { credit }: any) => {
   const imageBaseUrl = "https://image.tmdb.org/t/p/w154";
   return (
@@ -13,7 +14,7 @@ const Credit = ( { credit }: any) => {
         ></ImageComponent>
       </div>
       <div className='flex flex-col gap-1'>
-        <p className="text-gray-200 text-m"> Name: {credit.name}</p>
+        <p className="text-gray-200 text-m"> Name: {credit.name || '-'}</p>
         <p className="text-gray-200 text-m"> { credit.character ? "Character: " + credit.character : '' } </p>
         {
           credit.job ?  <p className="text-gray-200 text-m"> { credit.job }</p>  : ""

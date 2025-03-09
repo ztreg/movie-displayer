@@ -2,14 +2,14 @@
 
 import { MovieDetailsProps } from "@/types/types";
 import { Suspense } from "react";
-import { VideoPlayer, Category, ImageComponent, Credit } from "./";
+import { VideoIframe, Category, ImageComponent, Credit } from "./";
 import Loading from "@/app/loading";
 import { formatNumber, getPopularityRank, getYearFromDate, roundedNumber } from "@/utils/utils";
 
 const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
   const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
-  const isCrewsEmpty = !Array.isArray(credits.crew) || credits.crew.length < 1 || !credits
-  const isCastEmpty = !Array.isArray(credits.cast) || credits.cast.length < 1 || !credits
+  const isCrewsEmpty = !Array.isArray(credits?.crew) || credits.crew.length < 1 || !credits
+  const isCastEmpty = !Array.isArray(credits?.cast) || credits.cast.length < 1 || !credits
   
   return (
     <div className="movie__details-wrapper h-auto ">
@@ -20,7 +20,7 @@ const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
               {movie.title} 
             </div>
             <div className="flex flex-col mr-6">
-              <p className="text-[20px] leading-[20px] font-semibold">⭐ { roundedNumber(movie.vote_average)}/10 </p>
+              <p className="text-[20px] leading-[20px] font-semibold">⭐ { movie.vote_average ? roundedNumber(movie.vote_average) : '?' }/10 </p>
               <p className="text-[14px]">Votes: { movie.vote_count }</p>
             </div>
           </div> 
@@ -30,7 +30,7 @@ const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
             <div> { movie.runtime} min </div>
           </div>
         </div>
-        <div className="relative w-full h-auto my-2 flex flex-row flex-wrap gap-6 bg-black/40 backdrop-blur-lg py-4 rounded-3xl justify-around">
+        <div className="relative w-full h-auto my-2 flex flex-row flex-wrap gap-6 bg-black/40 backdrop-blur-lg py-4 rounded-3xl justify-around items-center">
           <div className="relative h-[300px] w-[243px] object-contain rounded-3xl">
             <ImageComponent
               baseUrl={imageBaseUrl}
@@ -38,16 +38,22 @@ const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
               alt="image of movie poster"
             ></ImageComponent>
           </div>
+          
+          <Suspense fallback={<Loading />}> 
+            {
+              trailers && trailers?.length > 0 && <VideoIframe videoId={trailers?.[0]?.key} title={trailers?.[0].name}></VideoIframe>
+            }
+          </Suspense>
 
-          <Suspense fallback={<Loading />}> { trailers?.length && ( <VideoPlayer videoId={trailers?.[0]?.key}></VideoPlayer> ) } </Suspense>
-
-        <div className="relative h-[300px] w-[400px] object-contain rounded-3xl m-0 p-0 bg-gradient-to-r from-gray-800 via-pink-800 to-gray-900 rounded-2x">
-          <ImageComponent
-            baseUrl={imageBaseUrl}
-            imageUrl={movie.backdrop_path}
-            alt="image of movie backdrop"
-          ></ImageComponent>
-        </div>
+          <div className="relative h-[300px] w-[400px] object-contain rounded-3xl m-0 p-0 bg-gradient-to-r from-gray-800 via-pink-800 to-gray-900 rounded-2x">
+          <Suspense fallback={<Loading />}>
+            <ImageComponent
+              baseUrl={imageBaseUrl}
+              imageUrl={movie.backdrop_path}
+              alt="image of movie backdrop"
+            ></ImageComponent>
+          </Suspense>
+          </div>
 
         </div>
 
@@ -55,15 +61,15 @@ const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
           <div className='mt-3 flex flex-wrap gap-8'>
             <div className='flex gap-4 items-center justify-between flex-wrap w-full'>
               <blockquote className="border-l-4 border-purple-600 pl-4 italic text-white text-lg">
-                “{movie.tagline}”
+                “{movie?.tagline || 'Life is like a box of chocolate, something something....'}”
               </blockquote>
               <div className="flex gap-2 mr-6 flex-wrap">
                 { movie.genres?.map((genre) => <Category key={genre.id} genre={genre}></Category>)}
               </div>
             </div>
-            <div className='flex flex-1 justify-between flex-wrap'>
+            <div className='flex flex-1 justify-between flex-wrap gap-4'>
               <div className="max-w-[600px]">
-                <p className=' text-gray-300 leading-relaxed'>{movie.overview}</p>
+                <p className=' text-gray-300 leading-relaxed'>{movie.overview || 'Life is like a box of chocolate, something something....'}</p>
               </div>
               <div className='flex flex-col gap-1 mr-6'>
                 <p className="text-gray-200 text-m"> Budget: { formatNumber(movie.budget)} </p>

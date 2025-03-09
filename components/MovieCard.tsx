@@ -23,16 +23,18 @@ const MovieCard = ({ movie, type }: MovieProps) => {
         </div>
       {
         type !== "explore" ? (
-        <div className="mt-4 flex justify-around flex-wrap">
+        <div className="mt-4 flex justify-around flex-wrap items-center">
           <div className="flex flex-col">
             <span className="text-md text-gray-400">⭐ {roundedNumber(movie.vote_average)}/10</span>
             <span className="text-md text-gray-400">Votes: {movie.vote_count}</span>
           </div>
           <div className="flex flex-col items-end">
-            <button className="px-4 py-2 bg-pink-500 text-gray-900 font-semibold rounded-lg hover:bg-pink-400 transition">
-              Details
-            </button>
-            <span className="text-md text-gray-400">Released: {getYearFromDate(movie.release_date)}</span>
+            <span className="text-md text-gray-400">{getYearFromDate(movie.release_date)}</span>
+            <span className="text-md text-gray-100">More ➡️</span>
+
+            {/* <button className="px-2 py-1 bg-pink-900 text-gray-100 font-semibold rounded-lg hover:bg-pink-400 transition">
+              Details1
+            </button> */}
           </div>
         </div>
 

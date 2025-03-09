@@ -13,8 +13,9 @@ const optionsGet = {
   next: { revalidate: 60 } 
 };
 
-// ✅ Centralized fetch function for cleaner code & better error handling
+// Centralized fetch function
 async function fetchData<T>(url: string): Promise<T | null> {
+  console.log("Fetching data from:", url); // Add logging here
   try {
     const res = await fetch(url, optionsGet);
 
@@ -28,15 +29,15 @@ async function fetchData<T>(url: string): Promise<T | null> {
     return null;
   }
 }
-// ✅ Get movies based on search/category/sort
-export async function getMovies(page: number = 1, searchText?: string, category?: string, sort_by = "vote_average.desc") {
+// Get movies based on search/category/sort
+export async function getMovies(page: number = 1, category?: string, sort_by = "vote_average.desc") {
   const baseUrl = `${API_URL}/discover/movie`;
 
   const params = new URLSearchParams({
     include_adult: "false",
     include_video: "false",
     language: "en-US",
-    "vote_count.gte": "1000",
+    "vote_count.gte": "800",
     page: page.toString(),
   });
 
@@ -50,57 +51,56 @@ export async function getMovies(page: number = 1, searchText?: string, category?
   return fetchData<Movie[]>(fullUrl);
 }
 
-// ✅ Get movie trailers
+// Get movie trailers
 export async function getMovieVideos(id: string) {
   const url = `${API_URL}/movie/${id}/videos?language=en-US&api_key=${ACCESS_TOKEN}`;
   return fetchData<Trailer[]>(url);
 }
 
-// ✅ Get movie credits (cast & crew)
+// Get movie credits (cast & crew)
 export async function getMovieCredits(movieId: string) {
   const url = `${API_URL}/movie/${movieId}/credits?language=en-US&api_key=${ACCESS_TOKEN}`;
   return fetchData<MovieCredits>(url);
 }
 
-// ✅ Get full movie details
+// Get full movie details
 export async function getMovie(id: string) {
   const url = `${API_URL}/movie/${id}?language=en-US&api_key=${ACCESS_TOKEN}`;
   return fetchData<MovieDetailsType>(url);
 }
 
-// ✅ Get movie genres
+// Get movie genres
 export async function getMovieGenres() {
   const url = `${API_URL}/genre/movie/list?language=en-US&api_key=${ACCESS_TOKEN}`;
   return fetchData<Genre[]>(url);
 }
 
-// ✅ Get popular movies
+// Get popular movies
 export async function getPopularMovies() {
   const url = `${API_URL}/movie/popular?language=en-US&page=1&api_key=${ACCESS_TOKEN}`;
   return fetchData<Movie[]>(url);
 }
 
-// ✅ Get popular movies
+// Get popular movies
 export async function getUpcomingMovies() {
   const url = `${API_URL}/movie/upcoming?language=en-US&page=1&api_key=${ACCESS_TOKEN}`;
   return fetchData<Movie[]>(url);
 }
 
-// 🔢 Utility Functions
+// Utility Functions
 export const roundedNumber = (num: number) => Math.round(num * 10) / 10;
 
 export const formatNumber = (num: number) => {
-  if(num === 0) return "Missing information"
+  if(num === 0) return "No data"
   return num >= 1_000_000 ? (num / 1_000_000).toFixed(2).replace(".", ",") + " million" : num;
 }
 
-
 export const getPopularityRank = (popularity: number): string => {
-  if (popularity >= 300) return "Very High (9-10/10)";
-  if (popularity >= 100) return "High (7-8/10)";
-  if (popularity >= 30) return "Moderate (4-6/10)";
-  if (popularity >= 10) return "Low (2-3/10)";
-  return "Very Low (1/10)";
+  if (popularity >= 300) return "Very Popular";
+  if (popularity >= 100) return "Popular";
+  if (popularity >= 30) return "Fairly popular";
+  if (popularity >= 10) return "Not very popular";
+  return "Not very popular";
 };
 
 export const getYearFromDate = (date: string): string => {

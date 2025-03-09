@@ -152,7 +152,7 @@ export interface CreditProps {
 export interface MovieDetailsProps {
     movie: MovieDetailsType
     trailers?: Trailer[]
-    credits: MovieCredits
+    credits?: MovieCredits | null
 }
 
 export interface SearchBarProps {

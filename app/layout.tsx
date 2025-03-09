@@ -19,14 +19,12 @@ export default function RootLayout({
         className={`min-h-screen themed-bg-pattern text-white`}
       >
         <div className="bg-black/40 min-h-screen ">
-
          <GenreProvider>
-          <Navbar></Navbar>
-            {children}
-          <Footer></Footer>
-        </GenreProvider>
-    </div>
-
+            <Navbar></Navbar>
+              {children}
+            <Footer></Footer>
+          </GenreProvider>
+        </div>
       </body>
     </html>
   );

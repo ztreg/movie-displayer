@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-const API_URL = process.env.NEXT_PUBLIC_TMDB_API_URL; // Use your TMDB API base URL
-const ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN; // Your TMDB access token (keep this server-side!)
+const API_URL = process.env.NEXT_PUBLIC_TMDB_API_URL;
+const ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
 
 const optionsGet = {
   method: 'GET',
@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     }
 
     const data = await res.json();
-    return NextResponse.json(data.results); // Return movie results to the client
+    return NextResponse.json(data.results);
   } catch (error: any) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }

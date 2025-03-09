@@ -16,8 +16,8 @@ module.exports = {
       },
       keyframes: {
         blink: {
-          "0%, 100%": { opacity: 1, scale: "120%" },
-          "50%": { opacity: 0.4, scale: "90%"  },
+          "0%, 100%": { opacity: 1, scale: "100%" },
+          "50%": { opacity: 0.4, scale: "99%"  },
         },
       },
       colors: {
