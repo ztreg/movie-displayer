@@ -34,7 +34,7 @@ export async function getMovies(page: number = 1, category?: string, sort_by = "
   const baseUrl = `${API_URL}/discover/movie`;
 
   const params = new URLSearchParams({
-    include_adult: "false",
+    include_adult: "true",
     include_video: "false",
     language: "en-US",
     "vote_count.gte": "800",
@@ -83,7 +83,8 @@ export async function getPopularMovies() {
 
 // Get popular movies
 export async function getUpcomingMovies() {
-  const url = `${API_URL}/movie/upcoming?language=en-US&page=1&api_key=${ACCESS_TOKEN}`;
+  const today = new Date().toISOString().split("T")[0]; // Format date as YYYY-MM-DD
+  const url = `${API_URL}/discover/movie?language=en-US&primary_release_date.gte=${today}&api_key=${ACCESS_TOKEN}`;
   return fetchData<Movie[]>(url);
 }
 

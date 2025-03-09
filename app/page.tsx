@@ -14,29 +14,25 @@ export default async function Home( props: Readonly<{ searchParams: Promise<{ pa
 
   return (
     page && 
-    <div className="overflow-hidden padding-x padding-y">
-      {!isDataEmpty ? (
-        <div className="">
-          <section className="">
-            <Explore movies={movies}  text="Trending"></Explore>
-          </section>
-        </div>
-      ): (
-        <div className="home__error-container">
-          <h2 className="text-white text-xl font-bold">Oops, no results</h2>
-        </div>
-      )}
-      {!isUpcomingEmpty ? (
-        <div className="">
-          <section>
-            <Explore movies={upcomingMovies} text="Upcoming" ></Explore>
-          </section>
-        </div>
-      ): (
-        <div className="home__error-container">
-          <h2 className="text-white text-xl font-bold">Oops, no results</h2>
-        </div>
-      )}
-    </div>
+      <div className="overflow-hidden padding-x padding-y">
+        {!isDataEmpty ? (
+            <section>
+              <Explore movies={movies}  text="Trending Movies"></Explore>
+            </section>
+        ): (
+          <div className="home__error-container">
+            <h2 className="text-white text-xl font-bold">Oops, no results</h2>
+          </div>
+        )}
+        {!isUpcomingEmpty ? (
+            <section>
+              <Explore movies={upcomingMovies} text="Upcoming Releases" ></Explore>
+            </section>
+        ): (
+          <div className="home__error-container">
+            <h2 className="text-white text-xl font-bold">Oops, no results</h2>
+          </div>
+        )}
+      </div>
   );
 }

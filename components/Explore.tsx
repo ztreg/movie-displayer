@@ -9,23 +9,24 @@ const Explore = ({ movies, text }: CarouselProps) => {
   const [isScrolling, setIsScrolling] = useState(false);
 
   const nextSlide = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 320, behavior: 'smooth' });
-    }
+    // Use optional chaining to safely access carouselRef.current
+    carouselRef.current?.scrollBy({ left: 236, behavior: 'smooth' });
   };
 
   const prevSlide = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: -320, behavior: 'smooth' });
-    }
+    // Use optional chaining to safely access carouselRef.current
+    carouselRef.current?.scrollBy({ left: -250, behavior: 'smooth' });
   };
 
   // Check if carousel is scrollable
   useEffect(() => {
     if (carouselRef.current) {
       const checkScroll = () => {
-        const isScrollable = carouselRef.current.scrollWidth > carouselRef.current.clientWidth;
-        setIsScrolling(isScrollable);
+        // Ensure carouselRef.current is defined before accessing properties
+        if (carouselRef.current) {
+          const isScrollable = carouselRef.current.scrollWidth > carouselRef.current.clientWidth;
+          setIsScrolling(isScrollable);
+        }
       };
 
       checkScroll();

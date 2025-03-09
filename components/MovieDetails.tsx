@@ -67,11 +67,12 @@ const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
                 { movie.genres?.map((genre) => <Category key={genre.id} genre={genre}></Category>)}
               </div>
             </div>
-            <div className='flex flex-1 justify-between flex-wrap gap-4'>
+            <div className='flex flex-1 justify-between flex-wrap gap-4 items-center'>
               <div className="max-w-[600px]">
                 <p className=' text-gray-300 leading-relaxed'>{movie.overview || 'Life is like a box of chocolate, something something....'}</p>
               </div>
               <div className='flex flex-col gap-1 mr-6'>
+                <p className="text-gray-200 text-m"> Full Release Date: { movie.release_date} </p>
                 <p className="text-gray-200 text-m"> Budget: { formatNumber(movie.budget)} </p>
                 <p className="text-gray-200 text-m"> Revenue: { formatNumber(movie.revenue)} </p>
                 <p className="text-gray-200 text-m"> Popularity: { getPopularityRank(movie.popularity)} </p>
