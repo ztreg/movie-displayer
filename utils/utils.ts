@@ -13,6 +13,8 @@ const optionsGet = {
   next: { revalidate: 60 } 
 };
 
+
+
 // Centralized fetch function
 async function fetchData<T>(url: string): Promise<T | null> {
   try {
@@ -85,6 +87,46 @@ export async function getUpcomingMovies() {
   const today = new Date().toISOString().split("T")[0]; // Format date as YYYY-MM-DD
   const url = `${API_URL}/discover/movie?language=en-US&primary_release_date.gte=${today}&api_key=${ACCESS_TOKEN}`;
   return fetchData<Movie[]>(url);
+}
+
+// Centralized POST fetch function
+async function postData<T>(url: string, optionsPost: RequestInit): Promise<T | null> {
+  try {
+    const res = await fetch(url, optionsPost);
+
+    if (!res.ok) throw new Error(`Request failed: ${res.statusText}`);
+
+    // Assuming JSON response
+    const data = await res.json();
+
+    // Return the data in a structured way, handling different response types
+    return data.results ? (data.results as T) : (data as T);
+  } catch (error) {
+    console.error("Error posting data:", error);
+    return null;
+  }
+}
+
+// Post movie rating
+export async function postMovieRating(movieId = 1, rating = 1) {
+  const optionsPost = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${BEARER_TOKEN}`
+    },
+    next: { revalidate: 60 },
+    body: JSON.stringify({ value: rating }), // Serialize the body as JSON
+  };
+  
+  const result = await postData<{ message: string }>(`${API_URL}/movie/${movieId}/rating`, optionsPost);
+
+  if (result) {
+    console.log(result);
+  } else {
+    console.log('Failed to post rating.');
+  }
+  // return fetchData<Movie[]>(result);
 }
 
 // Utility Functions

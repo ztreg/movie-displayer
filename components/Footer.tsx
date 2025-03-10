@@ -8,7 +8,11 @@ const Footer = () => {
         
         {/* Branding */}
         <p className="text-sm text-gray-400">
-          &copy; {new Date().getFullYear()} Jonas Gertz. 🙂
+          &copy; {new Date().getFullYear()} Jonas Gertz aka 🙂
+          <span className="drop-shadow-md tracking-widest bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            🎬ZtregMDB 
+          </span>
+           
         </p>
 
 

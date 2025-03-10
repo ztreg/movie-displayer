@@ -165,3 +165,12 @@ export interface ImageComponentProps {
   w?: string
   h?: string
 }
+
+export interface RatingModalProps {
+  isModalOpen: boolean;
+  selectedRating: number | null;
+  statusMessage?: string;
+  handleRatingChange: (rating: number) => void;
+  handleSubmitRating: () => void;
+  handleClose: () => void;
+}
