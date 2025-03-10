@@ -42,12 +42,12 @@ const RatingModal = ({
           </button>
           <button
             className={`w-full py-2 text-lg font-medium text-white rounded-lg transition-all duration-300 
-              ${statusMessage === "Successfully rated ✅" ? 
+              ${(statusMessage === "Successfully rated ✅" || !selectedRating) ? 
                 "bg-gray-400 cursor-not-allowed opacity-50" : 
                 "bg-indigo-600 hover:bg-indigo-700"
             }`}
             onClick={handleSubmitRating}
-            disabled={statusMessage === "Successfully rated ✅"}
+            disabled={statusMessage === "Successfully rated ✅" || !selectedRating}
           >
             {statusMessage === "Successfully rated ✅" ? 'Already voted.' : 'Submit rating'}
           </button>
