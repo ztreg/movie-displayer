@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
 
     const result = await response.json();
     return NextResponse.json({ message: "Rating posted successfully", result });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
