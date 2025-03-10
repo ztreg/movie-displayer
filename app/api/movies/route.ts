@@ -1,7 +1,6 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 const API_URL = process.env.NEXT_PUBLIC_TMDB_API_URL;
 const ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
-const BEARER_TOKEN = process.env.TMDB_BEARER_TOKEN;
 
 const optionsGet = {
   method: 'GET',

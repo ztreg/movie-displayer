@@ -38,13 +38,6 @@ const Navbar = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
 
-  // Check if the current page is active
-  const isActive = (href: string) => {
-    if (!currentPath) return false;
-    const url = new URL(href, window.location.origin); // Generate the full URL
-    return url.pathname === currentPath; // Compare only pathname, ignore query
-  };
-
   // Determine if Home or Browse should be highlighted based on URL
   const isHomeActive = currentPath === '/';
   const isBrowseActive = currentPath?.startsWith('/movies');
