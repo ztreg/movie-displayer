@@ -6,11 +6,11 @@ import { GenreProvider } from "@/contexts/GenreContext";
 export const metadata: Metadata = {
   title: "ZtregMDB. Correct Ratings.",
   description: "The only true source of movie ratings.",
-  metadataBase: new URL("https://www.ztregmdb.com"), // Replace with your actual base URL
+  metadataBase: new URL("https://ztregmdb.vercel.app/"), // Replace with your actual base URL
   openGraph: {
     title: "ZtregMDB. Correct Ratings.",
     description: "The only true source of movie ratings.",
-    url: "https://www.ztregmdb.com", // Replace with your actual site URL
+    url: "https://ztregmdb.vercel.app/", // Replace with your actual site URL
     siteName: "ZtregMDB",
     images: [
       {
