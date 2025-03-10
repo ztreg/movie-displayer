@@ -4,11 +4,11 @@ import { Footer, Navbar } from "@/components";
 import { GenreProvider } from "@/contexts/GenreContext";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ztregmdb.vercel.app"), // Ensures absolute URLs
-  title: "ZtregMDB – The Best Movie Ratings",
+  metadataBase: new URL("https://ztregmdb.vercel.app"),
+  title: "ZtregMDB – Correct Ratings",
   description: "The only true source of movie ratings.",
   openGraph: {
-    title: "ZtregMDB – The Best Movie Ratings",
+    title: "ZtregMDB – Correct Ratings",
     description: "Get the most accurate movie ratings from ZtregMDB.",
     url: "https://ztregmdb.vercel.app",
     siteName: "ZtregMDB",
@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     ],
   },
 };
+
 
 
 export default function RootLayout({
