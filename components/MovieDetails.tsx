@@ -45,14 +45,14 @@ const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
             }
           </Suspense>
 
-          <div className="relative h-[300px] w-[400px] object-contain rounded-3xl m-0 p-0 bg-gradient-to-r from-gray-800 via-pink-800 to-gray-900 rounded-2x">
-          <Suspense fallback={<Loading />}>
-            <ImageComponent
-              baseUrl={imageBaseUrl}
-              imageUrl={movie.backdrop_path}
-              alt="image of movie backdrop"
-            ></ImageComponent>
-          </Suspense>
+          <div className="relative h-[300px] w-[400px] object-contain rounded-3xl m-0 p-0 bg-gradient-to-r from-gray-800 via-gray-900 to-gray-800 rounded-2x">
+            <Suspense fallback={<Loading />}>
+              <ImageComponent
+                baseUrl={imageBaseUrl}
+                imageUrl={movie.backdrop_path}
+                alt="image of movie backdrop"
+              ></ImageComponent>
+            </Suspense>
           </div>
 
         </div>
@@ -76,7 +76,7 @@ const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
                 <p className="text-gray-200 text-m"> Budget: { formatNumber(movie.budget)} </p>
                 <p className="text-gray-200 text-m"> Revenue: { formatNumber(movie.revenue)} </p>
                 <p className="text-gray-200 text-m"> Popularity: { getPopularityRank(movie.popularity)} </p>
-            </div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full border-t-2">
@@ -101,9 +101,9 @@ const MovieDetails = ({ movie, trailers, credits  }: MovieDetailsProps) => {
                 {!isCrewsEmpty ? (
                   <div className="p-4 text-black-1 flex flex-col gap-4">
                     <h2 className="pb-2 text-lg">Key Crew Members</h2>
-                    {credits?.crew?.map((crew, i) => (
-                      i < 5 && <Credit key={`${crew.id}-${i}`} credit={crew} />
-                    ))}
+                      {credits?.crew?.map((crew, i) => (
+                        i < 5 && <Credit key={`${crew.id}-${i}`} credit={crew} />
+                      ))}
                   </div>
                   ) : (
                     <div className="home__error-container">

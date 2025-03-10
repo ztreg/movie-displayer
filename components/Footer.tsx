@@ -8,7 +8,7 @@ const Footer = () => {
         
         {/* Branding */}
         <p className="text-sm text-gray-400">
-          &copy; {new Date().getFullYear()} Jonas Gertz. No rights reserved.
+          &copy; {new Date().getFullYear()} Jonas Gertz. 🙂
         </p>
 
 

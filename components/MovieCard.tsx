@@ -5,7 +5,7 @@ import { ImageComponent } from "./index";
 import { getYearFromDate, roundedNumber } from "@/utils/utils";
 
 const MovieCard = ({ movie, type }: MovieProps) => {
-  const imageBaseUrl = "https://image.tmdb.org/t/p/w185";
+  const imageBaseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_URL ?? ""; 
   const imageHeight = type === "explore" ? "h-40" : "h-80"
   return (
     <Link href={`/movies/${movie.id}` } className="min-w-[240px] flex flex-col flex-start scale-100 hover:scale-105 ease-in duration-100 bg-gray-900 text-white p-6 rounded-xl border border-pink-500/60 shadow-lg shadow-pink-500/20">

@@ -3,7 +3,6 @@
 import { useState, useEffect, JSX, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { ImageComponent } from ".";
-
 interface Movie {
   id: number;
   title: string;
@@ -16,7 +15,7 @@ const SearchBar = () => {
   const [debouncedQuery, setDebouncedQuery] = useState<string>("");  // Track the debounced query
   const [results, setResults] = useState<Movie[]>([]); // Store the fetched movie results
   const [isLoading, setIsLoading] = useState<boolean>(false);  // Show loading state while fetching data
-  const imageBaseUrl = "https://image.tmdb.org/t/p/w185";  // Base URL for the movie poster images
+  const imageBaseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_URL ?? "";  // Base URL for the movie poster images
   const router = useRouter();
   const pathname = usePathname();  // Use pathname to detect route changes
   
@@ -26,33 +25,33 @@ const SearchBar = () => {
   // Debounce the query input (300ms delay)
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedQuery(query);  // Update the debounced query after 300ms
+      setDebouncedQuery(query); 
     }, 300);
-    return () => clearTimeout(timer);  // Clear the timeout on cleanup
+    return () => clearTimeout(timer);
   }, [query]);
 
   // Fetch movies when the debounced query changes
   useEffect(() => {
     if (!debouncedQuery) {
-      setResults([]);  // Clear results when there is no query
+      setResults([]);
       return;
     }
 
     const fetchMovies = async () => {
-      setIsLoading(true);  // Set loading state to true while fetching
+      setIsLoading(true);
       try {
         const response = await fetch(`/api/movies?query=${debouncedQuery}&page=1`);
         if (response.ok) {
           const data = await response.json();
-          setResults(data);  // Set the fetched movie results
+          setResults(data);
         } else {
-          setResults([]);  // No results found
+          setResults([]);
         }
       } catch (error) {
-        console.error(error);  // Handle any errors that occur during fetching
-        setResults([]);  // Clear results if there was an error
+        console.error(error);
+        setResults([]);
       } finally {
-        setIsLoading(false);  // Set loading state to false after fetching
+        setIsLoading(false);
       }
     };
 
@@ -66,9 +65,9 @@ const SearchBar = () => {
 
   // Reset search results and query when the pathname changes
   useEffect(() => {
-    setQuery("");  // Clear query when pathname changes
-    setResults([]);  // Clear results when pathname changes
-  }, [pathname]);  // Watch for pathname changes
+    setQuery("");
+    setResults([]);
+  }, [pathname]);
 
   useEffect(() => {
     // Close the search on Escape key press
@@ -130,7 +129,7 @@ const SearchBar = () => {
   }
 
   return (
-    <div className="relative w-[390px] max-w-lg flex flex-col" ref={searchBarRef}>
+    <div className="relative w-full flex flex-col min-w-[260px] sm:min-w-[500px]" ref={searchBarRef}>
       <input
         type="text"
         value={query}

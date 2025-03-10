@@ -3,7 +3,7 @@ import ImageComponent from './ImageComponent';
 
 // Crew Or Cast Member
 const Credit = ( { credit }: any) => {
-  const imageBaseUrl = "https://image.tmdb.org/t/p/w154";
+  const imageBaseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_URL ?? ""; 
   return (
     <div className='flex gap-4 min-h-[60px] h-[auto]'>
       <div className='relative w-[50px] h-[50px] my-2 object-contain'>

@@ -15,7 +15,6 @@ const optionsGet = {
 
 // Centralized fetch function
 async function fetchData<T>(url: string): Promise<T | null> {
-  console.log("Fetching data from:", url); // Add logging here
   try {
     const res = await fetch(url, optionsGet);
 
@@ -101,7 +100,7 @@ export const getPopularityRank = (popularity: number): string => {
   if (popularity >= 100) return "Popular";
   if (popularity >= 30) return "Fairly popular";
   if (popularity >= 10) return "Not very popular";
-  return "Not very popular";
+  return "No data";
 };
 
 export const getYearFromDate = (date: string): string => {
