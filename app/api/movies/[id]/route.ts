@@ -20,9 +20,9 @@ export async function POST(request: NextRequest) {
         Authorization: `Bearer ${BEARER_TOKEN}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ value: rating }), // Send the rating as the body
+      body: JSON.stringify({ value: rating }),
     };
-
+    
     const response = await fetch(`${API_URL}/movie/${movieId}/rating`, optionsPost);
 
     if (!response.ok) {

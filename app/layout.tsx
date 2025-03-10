@@ -21,7 +21,9 @@ export default function RootLayout({
         <div className="bg-black/40 min-h-screen ">
          <GenreProvider>
             <Navbar></Navbar>
+            <div className="min-h-[80vh]">
               {children}
+            </div>
             <Footer></Footer>
           </GenreProvider>
         </div>

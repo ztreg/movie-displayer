@@ -8,6 +8,7 @@ import { formatNumber, getPopularityRank, getYearFromDate, roundedNumber } from 
 import RatingModal from "./RatingModal"; // Import RatingModal
 
 const MovieDetails = ({ movie, trailers, credits }: MovieDetailsProps) => {
+
   const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
   const isCrewsEmpty = !Array.isArray(credits?.crew) || credits.crew.length < 1 || !credits;
   const isCastEmpty = !Array.isArray(credits?.cast) || credits.cast.length < 1 || !credits;

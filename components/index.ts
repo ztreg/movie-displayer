@@ -4,7 +4,6 @@ import MovieDetails from './MovieDetails'
 import Navbar from './Navbar'
 import Category from './Category'
 import ImageComponent from './ImageComponent'
-import RedirectHome from './RedirectHome'
 import Explore from './Explore'
 import Credit from './Credit'
 import Sorting from './Sorting'
@@ -19,7 +18,6 @@ export {
     Navbar,
     Category,
     ImageComponent,
-    RedirectHome,
     Explore,
     Credit,
     Sorting,

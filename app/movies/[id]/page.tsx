@@ -17,10 +17,10 @@ export default async function MovieDetailsPage(
       return notFound();
     }
 
-    const videos = await getMovieVideos(id);
+    const videoRes = await getMovieVideos(id);
     const credits = await getMovieCredits(id);
-    const filteredVideos = videos?.filter((video) => video.type === "Trailer") ?? [];
-
+    const videos = videoRes?.results ?? []
+    const filteredVideos = videos?.filter((video) => video.type === "Trailer") ?? videos?.[0] ?? [];
     return (
       <div className="overflow-hidden padding-x padding-y max-width">
         <MovieDetails movie={movie} trailers={filteredVideos} credits={credits} />

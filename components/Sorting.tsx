@@ -1,8 +1,9 @@
 'use client';
 
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { Suspense } from 'react';
 
-const Sorting = () => {
+const SortingContent = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -32,8 +33,7 @@ const Sorting = () => {
     } else if (currentSorting === 'asc') {
       newSort = `${option}.desc`;
     }
-    // Third click removes sorting
-    
+
     const params = new URLSearchParams(searchParams.toString());
     if (newSort) {
       params.set('sort_by', newSort);
@@ -62,5 +62,11 @@ const Sorting = () => {
     </div>
   );
 };
+
+const Sorting = () => (
+  <Suspense fallback={<div>Loading Sorting...</div>}>
+    <SortingContent />
+  </Suspense>
+);
 
 export default Sorting;

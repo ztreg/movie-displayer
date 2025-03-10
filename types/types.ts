@@ -15,6 +15,13 @@ export interface Movie {
     vote_count: number
 }
 
+export interface MovieResponse {
+  page: number
+  results: Movie[]
+  total_pages: number
+  total_results: number
+}
+
 export interface Trailer {
     iso_639_1: string
     iso_3166_1: string
@@ -26,6 +33,11 @@ export interface Trailer {
     official: boolean
     published_at: string
     id: string
+}
+
+export interface MovieVideosResponse {
+  id: number
+  results: Trailer[]
 }
 
 export interface MovieDetailsType {

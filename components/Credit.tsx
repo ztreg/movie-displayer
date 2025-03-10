@@ -26,7 +26,6 @@ const Credit = ({ credit }: CreditProps) => {
       <div className='flex flex-col gap-1'>
         <p className="text-gray-200 text-m"> Name: {credit.name || '-'}</p>
 
-        {/* Conditionally render properties based on the type of credit */}
         {isCast(credit) && credit.character && (
           <p className="text-gray-200 text-m"> Character: {credit.character}</p>
         )}

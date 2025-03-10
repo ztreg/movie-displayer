@@ -1,4 +1,4 @@
-import { Genre, Movie, MovieCredits, MovieDetailsType, Trailer } from "@/types/types";
+import { Genre, Movie, MovieCredits, MovieDetailsType, MovieResponse, MovieVideosResponse, Trailer } from "@/types/types";
 
 const API_URL = process.env.NEXT_PUBLIC_TMDB_API_URL;
 const ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
@@ -24,7 +24,7 @@ async function fetchData<T>(url: string): Promise<T | null> {
     const data = await res.json();
 
     // Handle different response structures
-    return data.results ? (data.results as T) : (data as T);
+    return data as T;
   } catch (error) {
     console.error("Error fetching data:", error);
     return null;
@@ -49,13 +49,13 @@ export async function getMovies(page: number = 1, category?: string, sort_by = "
   // Correct the construction of the URL
   const fullUrl = `${baseUrl}?${params.toString()}`;
   
-  return fetchData<Movie[]>(fullUrl);
+  return fetchData<MovieResponse>(fullUrl);
 }
 
 // Get movie trailers
 export async function getMovieVideos(id: string) {
   const url = `${API_URL}/movie/${id}/videos?language=en-US&api_key=${ACCESS_TOKEN}`;
-  return fetchData<Trailer[]>(url);
+  return fetchData<MovieVideosResponse>(url);
 }
 
 // Get movie credits (cast & crew)
@@ -79,54 +79,14 @@ export async function getMovieGenres() {
 // Get popular movies
 export async function getPopularMovies() {
   const url = `${API_URL}/movie/popular?language=en-US&page=1&api_key=${ACCESS_TOKEN}`;
-  return fetchData<Movie[]>(url);
+  return fetchData<MovieResponse>(url);
 }
 
 // Get popular movies
 export async function getUpcomingMovies() {
   const today = new Date().toISOString().split("T")[0]; // Format date as YYYY-MM-DD
   const url = `${API_URL}/discover/movie?language=en-US&primary_release_date.gte=${today}&api_key=${ACCESS_TOKEN}`;
-  return fetchData<Movie[]>(url);
-}
-
-// Centralized POST fetch function
-async function postData<T>(url: string, optionsPost: RequestInit): Promise<T | null> {
-  try {
-    const res = await fetch(url, optionsPost);
-
-    if (!res.ok) throw new Error(`Request failed: ${res.statusText}`);
-
-    // Assuming JSON response
-    const data = await res.json();
-
-    // Return the data in a structured way, handling different response types
-    return data.results ? (data.results as T) : (data as T);
-  } catch (error) {
-    console.error("Error posting data:", error);
-    return null;
-  }
-}
-
-// Post movie rating
-export async function postMovieRating(movieId = 1, rating = 1) {
-  const optionsPost = {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      Authorization: `Bearer ${BEARER_TOKEN}`
-    },
-    next: { revalidate: 60 },
-    body: JSON.stringify({ value: rating }), // Serialize the body as JSON
-  };
-  
-  const result = await postData<{ message: string }>(`${API_URL}/movie/${movieId}/rating`, optionsPost);
-
-  if (result) {
-    console.log(result);
-  } else {
-    console.log('Failed to post rating.');
-  }
-  // return fetchData<Movie[]>(result);
+  return fetchData<MovieResponse>(url);
 }
 
 // Utility Functions
