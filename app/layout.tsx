@@ -4,37 +4,25 @@ import { Footer, Navbar } from "@/components";
 import { GenreProvider } from "@/contexts/GenreContext";
 
 export const metadata: Metadata = {
-  title: "ZtregMDB. Correct Ratings.",
+  metadataBase: new URL("https://ztregmdb.vercel.app"), // Ensures absolute URLs
+  title: "ZtregMDB – The Best Movie Ratings",
   description: "The only true source of movie ratings.",
-  metadataBase: new URL("https://ztregmdb.vercel.app/"), // Replace with your actual base URL
   openGraph: {
-    title: "ZtregMDB. Correct Ratings.",
-    description: "The only true source of movie ratings.",
-    url: "https://ztregmdb.vercel.app/", // Replace with your actual site URL
+    title: "ZtregMDB – The Best Movie Ratings",
+    description: "Get the most accurate movie ratings from ZtregMDB.",
+    url: "https://ztregmdb.vercel.app",
     siteName: "ZtregMDB",
     images: [
       {
-        url: "/snapshot.png", // Replace with your actual image path
+        url: "/snapshot.png",
         width: 1200,
         height: 630,
-        alt: "Movie List Poster",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "ZtregMDB. Correct Ratings.",
-    description: "The only true source of movie ratings.",
-    images: [
-      {
-        url: "/snapshot.png", // Replace with your actual image path
-        width: 1200,
-        height: 630,
-        alt: "Movie List Poster",
+        alt: "ZtregMDB Movie List",
       },
     ],
   },
 };
+
 
 export default function RootLayout({
   children,
