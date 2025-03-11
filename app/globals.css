@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -98,61 +97,61 @@
 }
 
 /* START: Car Card styles */
-.car-card {
+.movie-card {
   @apply flex flex-col p-6 justify-center items-start text-black-100 bg-primary-blue-100 hover:bg-white hover:shadow-md rounded-3xl;
 }
 
-.car-card__content {
+.movie-card__content {
   @apply w-full flex justify-between items-start gap-2;
 }
 
-.car-card__content-title {
+.movie-card__content-title {
   @apply text-[16px] leading-[22px] font-bold capitalize;
 }
 
-.car-card__price {
+.movie-card__price {
   @apply flex mt-6 text-[32px] leading-[38px] font-extrabold;
 }
 
-.car-card__price-dollar {
+.movie-card__price-dollar {
   @apply self-start text-[14px] leading-[17px] font-semibold;
 }
 
-.car-card__price-day {
+.movie-card__price-day {
   @apply self-end text-[14px] leading-[17px] font-medium;
 }
 
-.car-card__image {
+.movie-card__image {
   @apply relative w-full h-40 my-3 object-contain;
 }
 
-.car-card__icon-container {
+.movie-card__icon-container {
   @apply flex group-hover:invisible w-full justify-between text-grey group-hover:flex;
 }
 
-.car-card__icon {
+.movie-card__icon {
   @apply flex flex-col justify-center items-center gap-2;
 }
 
-.car-card__icon-text {
+.movie-card__icon-text {
   @apply text-[14px] leading-[17px];
 }
 
-.car-card__btn-container {
+.movie-card__btn-container {
   @apply hidden group-hover:flex absolute bottom-0 w-full z-10;
 }
 /* END: Car Card styles */
 
 /* START: Car Details styles */
-.car-details__dialog-panel {
+.movie-details__dialog-panel {
   @apply relative w-full max-w-lg max-h-[90vh] overflow-y-auto transform rounded-2xl bg-white p-6 text-left shadow-xl transition-all flex flex-col gap-5;
 }
 
-.car-details__close-btn {
+.movie-details__close-btn {
   @apply absolute top-2 right-2 z-10 w-fit p-2 bg-primary-blue-100 rounded-full;
 }
 
-.car-details__main-image {
+.movie-details__main-image {
   @apply relative w-full h-40 bg-pattern bg-cover bg-center rounded-lg;
 }
 /* END: Car Details styles */

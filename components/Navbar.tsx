@@ -45,9 +45,10 @@ const Navbar = () => {
           />
         </button>
         <Link href="/" onClick={() => setIsGenresVisible(false)}>
-          <h2 className="text-4xl font-bold drop-shadow-md tracking-widest bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-            🎬ZtregMDB
-          </h2>
+        <h2 className="font-bold drop-shadow-md tracking-widest bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent sm:text-2xl md:text-4xl">
+          🎬ZtregMDB
+        </h2>
+
         </Link>
       </div>
 
@@ -93,7 +94,7 @@ const Navbar = () => {
         <div className="flex gap-3 flex-wrap items-center justify-between">
           <div className="flex gap-4 items-center">
             <Link href="/" className="text-xl font-semibold text-white">
-              <h2 className="text-4xl font-bold drop-shadow-md tracking-widest bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+              <h2 className="text-3xl font-bold drop-shadow-md tracking-widest bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
                 🎬ZtregMDB
               </h2>
             </Link>

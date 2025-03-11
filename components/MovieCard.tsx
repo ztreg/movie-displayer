@@ -9,8 +9,8 @@ const MovieCard = ({ movie, type }: MovieProps) => {
   const imageHeight = type === "explore" ? "h-40" : "h-80"
   return (
     <Link href={`/movies/${movie.id}` } className="min-w-[240px] flex flex-col flex-start scale-100 hover:scale-105 ease-in duration-100 bg-gray-900 text-white p-6 rounded-xl border border-pink-500/60 shadow-lg shadow-pink-500/20">
-        <div className="car-card__content ">
-          <h2 className="car-card__content-title w-full text-center mb-2 h-[40px]">
+        <div className="movie-card__content ">
+          <h2 className="movie-card__content-title w-full text-center mb-2 h-[40px]">
             {movie.title}
           </h2> 
         </div>

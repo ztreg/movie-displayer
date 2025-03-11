@@ -3,6 +3,14 @@ import "./globals.css";
 import { Footer, Navbar } from "@/components";
 import { GenreProvider } from "@/contexts/GenreContext";
 
+import { Manrope } from "next/font/google";
+
+const manrope = Manrope({
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  subsets: ["latin"], // You can add more subsets if needed
+  display: "swap", // Ensures text remains visible while loading
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://ztregmdb.vercel.app"),
   title: "ZtregMDB – Correct Ratings",
@@ -33,13 +41,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"
-        />
-        <link rel="icon" href="/favicon.ico" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes"></meta>
+      <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className={`min-h-screen themed-bg-pattern text-white`}>
+      <body className={`${manrope.className} min-h-screen themed-bg-pattern text-white`}>
         <div className="bg-black/40 min-h-screen ">
           <GenreProvider>
             <Navbar />
