@@ -23,9 +23,8 @@ const Navbar = () => {
   const [isGenresVisible, setIsGenresVisible] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState('');
-  const currentPath = usePathname(); // Use Next.js path tracking
+  const currentPath = usePathname();
 
-  // Find category name based on active category ID
   const activeCategoryName = genres.find((genre) => genre.id === Number(activeCategory))?.name ?? '';
 
   return (
@@ -113,11 +112,11 @@ const Navbar = () => {
                 <Image
                   priority
                   src={isGenresVisible ? '/despand.svg' : '/expand.svg'}
-                  width={20}
-                  height={20}
+                  width={30}
+                  height={30}
                   alt="Category menu"
                   className="ml-2 text-white rounded-3xl"
-                  style={{ width: '20px', height: '20px' }}
+                  style={{ width: '30px', height: '30px' }}
                 />
               </div>
               <div className="text-pink-300 font-bold">{activeCategoryName ? `(${activeCategoryName})` : ''}</div>

@@ -14,7 +14,7 @@ const ImageComponent = ( { baseUrl, imageUrl, w, h, alt }: ImageComponentProps )
             fill
             priority
             className="object-contain"
-            onError={() => setImageError(true)} // If error, show fallback
+            onError={() => setImageError(true)}
           />
     )
   }

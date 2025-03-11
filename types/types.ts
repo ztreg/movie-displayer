@@ -77,7 +77,7 @@ export interface MovieDetailsType {
     name: string;
     original_name: string;
     popularity: number;
-    profile_path: string | null; // profile path could be null in some cases
+    profile_path: string | null;
     cast_id: number;
     character: string;
     credit_id: string;
@@ -93,14 +93,14 @@ export interface MovieDetailsType {
     adult: boolean;
     gender: number;
     id: number;
-    known_for_department: string; // Can be "Production" or other departments.
+    known_for_department: string;
     name: string;
     original_name: string;
     popularity: number;
-    profile_path: string | null; // profile path could be null in some cases
+    profile_path: string | null;
     credit_id: string;
-    department: string; // Department like "Production", "Directing", etc.
-    job: string; // Job title in the department, such as "Producer"
+    department: string;
+    job: string;
   }
   
   export interface Genre {
@@ -135,6 +135,7 @@ export interface MovieProps {
     movie: Movie
     trailers?: Trailer[]
     type?: "explore" | "list"
+    text?: string
 }
 
 export interface CarouselProps {

@@ -21,7 +21,6 @@ export async function GET(request: Request) {
   }
   const fullUrl = `${API_URL}/search/movie?query=${encodeURIComponent(query)}&page=${page}&api_key=${ACCESS_TOKEN}&language=en-US`
   try {
-    // Fetch movies from TMDB
     const res = await fetch(fullUrl , optionsGet);
 
     if (!res.ok) {

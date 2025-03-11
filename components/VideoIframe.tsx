@@ -14,8 +14,8 @@ const VideoIframe = ({ videoId, autoPlay = false, title }: VideoIframeProps) => 
 
   const updateVideoHeight = useCallback(() => {
     if (iframeRef.current) {
-      const width = Math.min(iframeRef.current.offsetWidth, 500); // Max width: 500px
-      setVideoHeight(Math.min(width * 0.5625, 300)); // Maintain 16:9 ratio, max height 300px
+      const width = Math.min(iframeRef.current.offsetWidth, 500);
+      setVideoHeight(Math.min(width * 0.5625, 300));
     }
   }, []);
 

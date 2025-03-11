@@ -22,7 +22,6 @@ const SearchBar = () => {
   const pathname = usePathname();
   const imageBaseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_URL ?? "";
 
-  // Memoize debouncedFetch using useMemo to avoid recreating it on every render
   const debouncedFetch = useMemo(
     () =>
       debounce(async (searchQuery: string) => {
@@ -33,7 +32,9 @@ const SearchBar = () => {
 
         try {
           setIsLoading(true);
-          const response = await fetch(`/api/movies?query=${searchQuery}&page=1`);
+          const response = await fetch(
+            `/api/movies?query=${searchQuery}&page=1`
+          );
           if (response.ok) {
             setResults(await response.json());
           } else {

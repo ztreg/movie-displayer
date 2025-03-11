@@ -5,7 +5,7 @@ import { Suspense, useState } from "react";
 import { VideoIframe, Category, ImageComponent, Credit } from "./";
 import Loading from "@/app/loading";
 import { formatNumber, getPopularityRank, getYearFromDate, roundedNumber } from "@/utils/utils";
-import RatingModal from "./RatingModal"; // Import RatingModal
+import RatingModal from "./RatingModal";
 
 const MovieDetails = ({ movie, trailers, credits }: MovieDetailsProps) => {
 
@@ -13,21 +13,19 @@ const MovieDetails = ({ movie, trailers, credits }: MovieDetailsProps) => {
   const isCrewsEmpty = !Array.isArray(credits?.crew) || credits.crew.length < 1 || !credits;
   const isCastEmpty = !Array.isArray(credits?.cast) || credits.cast.length < 1 || !credits;
 
-  // State for the modal visibility and selected rating
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [statusMessage, setStatusMessage] = useState<string>("Rate this movie");
 
   const handleStarClick = () => {
-    setIsModalOpen(true); // Open the modal when the star is clicked
+    setIsModalOpen(true);
   };
 
   const handleRatingChange = (rating: number) => {
-    setSelectedRating(rating); // Set the selected rating
+    setSelectedRating(rating);
   };
 
   const handleSubmitRating = async () => {
-    // Handle the logic for submitting the rating to the API or backend here;
     if (selectedRating) {
       if (selectedRating === null) return;
       setStatusMessage("Rating...")
@@ -36,18 +34,18 @@ const MovieDetails = ({ movie, trailers, credits }: MovieDetailsProps) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ rating: selectedRating, movieId: movie.id }), // send rating in the request body
+        body: JSON.stringify({ rating: selectedRating, movieId: movie.id }),
       });
 
       setStatusMessage("Successfully rated ✅")
       setTimeout(() => {
-        setIsModalOpen(false); // Close the modal after submission
+        setIsModalOpen(false);
       }, 1000);
     }
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); // Close the modal
+    setIsModalOpen(false);
   };
 
   return (

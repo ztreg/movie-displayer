@@ -2,10 +2,10 @@ import { NextResponse, NextRequest } from "next/server";
 const API_URL = process.env.NEXT_PUBLIC_TMDB_API_URL;
 const BEARER_TOKEN = process.env.TMDB_BEARER_TOKEN;
 
+// Post ratings directly from component.
 export async function POST(request: NextRequest) {
   try {
     const { movieId, rating } = await request.json();
-    // Validate input
     if (!movieId || !rating || rating < 1 || rating > 10) {
       return NextResponse.json(
         { error: "Invalid movieId or rating. Rating must be between 1 and 10." },

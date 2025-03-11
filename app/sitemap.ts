@@ -1,10 +1,10 @@
 import { Movie } from "@/types/types";
-import { getMovies } from "@/utils/utils"; // Replace with your actual fetching function
+import { getMovies } from "@/utils/utils";
 import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const moviesResponse = await getMovies(); // Fetch movies
-  const movies = moviesResponse?.results ?? []; // Ensure it's always an array
+  const moviesResponse = await getMovies();
+  const movies = moviesResponse?.results ?? [];
 
   const staticRoutes = [
     { url: "https://ztregmdb.vercel.app/", priority: 1, changefreq: "daily" },

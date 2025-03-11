@@ -17,7 +17,7 @@ export function GenreProvider({ children }: Readonly<{ children: React.ReactNode
     }
   }, [genres.length]);
 
-  const contextValue = useMemo(() => ({ genres }), [genres]); // ✅ Memoized value for performance
+  const contextValue = useMemo(() => ({ genres }), [genres]);
 
   return <GenreContext.Provider value={contextValue}>{children}</GenreContext.Provider>;
 }

@@ -9,12 +9,10 @@ const Explore = ({ movies, text }: CarouselProps) => {
   const [isScrolling, setIsScrolling] = useState(false);
 
   const nextSlide = () => {
-    // Use optional chaining to safely access carouselRef.current
     carouselRef.current?.scrollBy({ left: 236, behavior: 'smooth' });
   };
 
   const prevSlide = () => {
-    // Use optional chaining to safely access carouselRef.current
     carouselRef.current?.scrollBy({ left: -250, behavior: 'smooth' });
   };
 
@@ -22,7 +20,6 @@ const Explore = ({ movies, text }: CarouselProps) => {
   useEffect(() => {
     if (carouselRef.current) {
       const checkScroll = () => {
-        // Ensure carouselRef.current is defined before accessing properties
         if (carouselRef.current) {
           const isScrollable = carouselRef.current.scrollWidth > carouselRef.current.clientWidth;
           setIsScrolling(isScrollable);
@@ -49,18 +46,20 @@ const Explore = ({ movies, text }: CarouselProps) => {
           </button>
         )}
 
-        {/* Carousel container */}
-        <div 
-          ref={carouselRef} 
-          className="flex gap-4 overflow-x-auto scroll-smooth scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-900 p-4 rounded-xl bg-black/30 backdrop-blur-md"
-          style={{ scrollBehavior: 'smooth' }}
-        >
-          {movies?.map((movie: Movie) => (
-            <div key={movie.id} className="flex-shrink-0 w-[220px]">
-              <MovieCard movie={movie} type="explore" />
-            </div>
-          ))}
-        </div>
+      {/* Carousel container */}
+      <div 
+        ref={carouselRef} 
+        className={`flex gap-4 overflow-x-auto scroll-smooth scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-900 p-4 rounded-xl 
+          ${text === "Trending Movies" ? "bg-red-700/60" : "bg-blue-700/60"} backdrop-blur-md`}
+        style={{ scrollBehavior: 'smooth' }}
+      >
+        {movies?.map((movie: Movie) => (
+          <div key={movie.id} className="flex-shrink-0 w-[220px]">
+            <MovieCard movie={movie} type="explore" />
+          </div>
+        ))}
+      </div>
+
 
         {/* Right arrow button */}
         {isScrolling && (

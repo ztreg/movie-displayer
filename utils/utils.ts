@@ -1,4 +1,4 @@
-import { Genre, Movie, MovieCredits, MovieDetailsType, MovieResponse, MovieVideosResponse, Trailer } from "@/types/types";
+import { Genre, MovieCredits, MovieDetailsType, MovieResponse, MovieVideosResponse } from "@/types/types";
 
 const API_URL = process.env.NEXT_PUBLIC_TMDB_API_URL;
 const ACCESS_TOKEN = process.env.TMDB_ACCESS_TOKEN;
@@ -23,7 +23,6 @@ async function fetchData<T>(url: string): Promise<T | null> {
     if (!res.ok) throw new Error(`Request failed: ${res.statusText}`);
     const data = await res.json();
 
-    // Handle different response structures
     return data as T;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -46,7 +45,6 @@ export async function getMovies(page: number = 1, category?: string, sort_by = "
   if (sort_by) params.append("sort_by", sort_by);
   params.append("api_key", ACCESS_TOKEN ?? "");
 
-  // Correct the construction of the URL
   const fullUrl = `${baseUrl}?${params.toString()}`;
   
   return fetchData<MovieResponse>(fullUrl);

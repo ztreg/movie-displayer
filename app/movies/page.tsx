@@ -1,9 +1,9 @@
-import { getMovies } from "@/utils/utils"; // Assuming you have this utility function
+import { getMovies } from "@/utils/utils";
 import Link from "next/link";
 import MovieCard from "@/components/MovieCard";
 import { Movie } from "@/types/types";
 import { Sorting } from "@/components";
-import { notFound } from "next/navigation"; // For handling 404-like errors
+import { notFound } from "next/navigation";
 
 interface MoviePageProps {
   searchParams: Promise<{
@@ -20,7 +20,6 @@ export default async function MoviePage({ searchParams }: Readonly<MoviePageProp
   const category = params.category || "";
   const sort_by = params.sort_by || "popularity.desc";
 
-  // Fetching movie data using a utility function, replace with your actual fetching logic
   const moviesResponse = await getMovies(page, category, sort_by);
   const movies = moviesResponse?.results ?? [];
   const totalPages = moviesResponse?.total_pages ?? 0;
@@ -28,7 +27,7 @@ export default async function MoviePage({ searchParams }: Readonly<MoviePageProp
   const isDataEmpty = !Array.isArray(movies) || movies.length < 1;
 
   if (isDataEmpty) {
-    notFound(); // Optional: this will display a 404 page if no data is found
+    notFound();
   }
 
   return (

@@ -1,5 +1,3 @@
-// components/RatingModal.tsx
-
 import { RatingModalProps } from "@/types/types";
 import React from "react";
 
