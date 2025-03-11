@@ -1,21 +1,22 @@
+import { Movie } from "@/types/types";
+import { getMovies } from "@/utils/utils"; // Replace with your actual fetching function
 import { MetadataRoute } from "next";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://ztregmdb.vercel.app";
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const moviesResponse = await getMovies(); // Fetch movies
+  const movies = moviesResponse?.results ?? []; // Ensure it's always an array
 
-  return [
-    {
-      url: `${baseUrl}/`,
-      lastModified: new Date().toISOString(),
-      priority: 1.0,
-      changeFrequency: "daily",
-    },
-    {
-      url: `${baseUrl}/movies`,
-      lastModified: new Date().toISOString(),
-      priority: 0.8,
-      changeFrequency: "weekly",
-    },
-    // Add more URLs as needed
+  const staticRoutes = [
+    { url: "https://ztregmdb.vercel.app/", priority: 1, changefreq: "daily" },
+    { url: "https://ztregmdb.vercel.app/movies", priority: 0.8, changefreq: "weekly" },
   ];
+
+  const dynamicMovieRoutes = movies.map((movie: Movie) => ({
+    url: `https://ztregmdb.vercel.app/movies/${movie.id}`,
+    lastmod: new Date().toISOString(),
+    changefreq: "weekly",
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...dynamicMovieRoutes];
 }
