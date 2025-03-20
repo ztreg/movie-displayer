@@ -69,7 +69,7 @@ export default async function MoviePage({ searchParams }: Readonly<MoviePageProp
 
         {page + 1 <= totalPages ? (
           <Link
-            href={`/movies?page=${page + 1}${category ? "&category=" + category : ""}`}
+            href={`/movies?page=${page + 1}${category ? "&category=" + category : ""}${sort_by ? "&sort_by=" + sort_by : ""}`}
             className="px-5 py-2 bg-[#2D2A32] text-[#E8C872] border border-[#E8C872] rounded-lg 
                       hover:bg-[#3B373F] transition-all duration-200 shadow-md"
           >
